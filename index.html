@@ -1,0 +1,3002 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astra Academy — Zamonaviy Frontend Dasturlash | To'liq Online Kitob</title>
+<meta name="description" content="Astra Academy dan zamonaviy Frontend dasturlash bo'yicha to'liq amaliy online qo'llanma va kitob: HTML5, CSS3, JavaScript, TypeScript, React, Next.js, Web Performance va Production arxitektura.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   ASTRA ACADEMY DESIGN SYSTEM & CSS VARIABLES
+   ========================================================================== */
+:root {
+  --bg: #0b0d17;
+  --bg2: #121526;
+  --bg3: #1a1e36;
+  --bg-card: rgba(22, 27, 46, 0.7);
+  --accent: #7c4dff;
+  --accent-light: #9e75ff;
+  --accent-gradient: linear-gradient(135deg, #7c4dff 0%, #00d2ff 100%);
+  --accent-cyan: #00d2ff;
+  --accent-emerald: #10b981;
+  --accent-rose: #f43f5e;
+  --accent-amber: #f59e0b;
+  --text: #f3f4f9;
+  --text2: #a2abbf;
+  --text3: #6c748c;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(124, 77, 255, 0.3);
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-strong: rgba(255, 255, 255, 0.06);
+  --code-bg: #0e111d;
+  --code-text: #34d399;
+  --table-bg: rgba(255, 255, 255, 0.02);
+  --sidebar-bg: #0e111f;
+  --sidebar-hover: rgba(124, 77, 255, 0.12);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+  --sidebar-width: 320px;
+}
+
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --bg2: #ffffff;
+  --bg3: #f1f5f9;
+  --bg-card: #ffffff;
+  --accent: #6366f1;
+  --accent-light: #4f46e5;
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #0284c7 100%);
+  --accent-cyan: #0284c7;
+  --accent-emerald: #059669;
+  --accent-rose: #e11d48;
+  --accent-amber: #d97706;
+  --text: #0f172a;
+  --text2: #475569;
+  --text3: #94a3b8;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(99, 102, 241, 0.3);
+  --glass: rgba(0, 0, 0, 0.02);
+  --glass-strong: rgba(0, 0, 0, 0.04);
+  --code-bg: #1e293b;
+  --code-text: #38bdf8;
+  --table-bg: #ffffff;
+  --sidebar-bg: #ffffff;
+  --sidebar-hover: rgba(99, 102, 241, 0.08);
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  display: flex;
+  font-size: 16px;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   PROGRESS BAR
+   ========================================================================== */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: var(--accent-gradient);
+  z-index: 99999;
+  box-shadow: 0 0 12px rgba(124, 77, 255, 0.6);
+  transition: width 0.1s ease;
+}
+
+/* ==========================================================================
+   SIDEBAR
+   ========================================================================== */
+.sidebar {
+  position: fixed;
+  top: 4px;
+  left: 0;
+  width: var(--sidebar-width);
+  height: calc(100vh - 4px);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(16px);
+}
+
+.sidebar-header {
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(124, 77, 255, 0.12);
+  border: 1px solid rgba(124, 77, 255, 0.25);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-light);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.brand-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-emerald);
+  box-shadow: 0 0 8px var(--accent-emerald);
+}
+
+.sidebar-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar-controls {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sidebar-controls button {
+  background: var(--glass-strong);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sidebar-controls button:hover {
+  background: var(--sidebar-hover);
+  color: var(--text);
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
+}
+
+.completion-counter {
+  padding: 10px 22px;
+  font-size: 0.82rem;
+  color: var(--text2);
+  background: rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.completion-counter strong {
+  color: var(--accent-emerald);
+  font-weight: 700;
+}
+
+.completion-bar {
+  width: 90px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.completion-bar-inner {
+  height: 100%;
+  width: 0%;
+  background: var(--accent-emerald);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.sidebar-search {
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.sidebar-search input {
+  width: 100%;
+  padding: 8px 12px 8px 34px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--glass);
+  color: var(--text);
+  font-size: 0.82rem;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.sidebar-search input:focus {
+  border-color: var(--accent);
+  background: var(--bg2);
+  box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.15);
+}
+
+.sidebar-search input::placeholder {
+  color: var(--text3);
+}
+
+.sidebar-search .search-icon {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text3);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.sidebar-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 0;
+}
+
+.sidebar-chapter {
+  margin-bottom: 3px;
+}
+
+.sidebar-h1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+  user-select: none;
+}
+
+.sidebar-h1:hover {
+  background: var(--sidebar-hover);
+  color: var(--text);
+}
+
+.sidebar-h1.active {
+  border-left-color: var(--accent);
+  background: var(--sidebar-hover);
+  color: var(--accent-light);
+}
+
+.sidebar-h1 .arrow {
+  font-size: 0.65rem;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  color: var(--text3);
+}
+
+.sidebar-h1.expanded .arrow {
+  transform: rotate(90deg);
+  color: var(--accent-light);
+}
+
+.sidebar-h1 .ch-link {
+  color: inherit;
+  text-decoration: none;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reading-time {
+  font-size: 0.68rem;
+  color: var(--text3);
+  background: var(--glass-strong);
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-left: auto;
+  font-family: var(--font-code);
+}
+
+/* Chapter checkbox */
+.ch-check {
+  position: relative;
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+}
+
+.ch-check input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ch-check .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 17px;
+  height: 17px;
+  border: 1.5px solid var(--text3);
+  border-radius: 5px;
+  transition: all 0.2s;
+  background: transparent;
+}
+
+.ch-check:hover .checkmark {
+  border-color: var(--accent);
+}
+
+.ch-check input:checked ~ .checkmark {
+  background: var(--accent-emerald);
+  border-color: var(--accent-emerald);
+}
+
+.ch-check input:checked ~ .checkmark::after {
+  content: '✓';
+  position: absolute;
+  top: 0px;
+  left: 3px;
+  font-size: 11px;
+  color: #0b0d17;
+  font-weight: 800;
+}
+
+/* Subtopics */
+.sidebar-children {
+  display: none;
+  padding-left: 46px;
+  margin: 4px 0 8px;
+}
+
+.sidebar-children.show {
+  display: block;
+}
+
+.sidebar-h2 {
+  display: block;
+  padding: 4px 10px;
+  font-size: 0.77rem;
+  color: var(--text2);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-h2:hover {
+  color: var(--text);
+  background: var(--sidebar-hover);
+  padding-left: 14px;
+}
+
+.sidebar-footer {
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+  font-size: 0.7rem;
+  color: var(--text3);
+  flex-shrink: 0;
+  line-height: 1.8;
+  background: var(--glass);
+}
+
+.sidebar-footer kbd {
+  background: var(--glass-strong);
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-code);
+  font-size: 0.65rem;
+  color: var(--text2);
+}
+
+/* Mobile Toggle */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 10000;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+}
+
+/* ==========================================================================
+   MAIN CONTENT AREA
+   ========================================================================== */
+.content {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  padding: 40px 60px 100px;
+  max-width: 1250px;
+}
+
+.content-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Hero Banner */
+.hero-banner {
+  padding: 48px 40px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(124, 77, 255, 0.12) 0%, rgba(0, 210, 255, 0.05) 100%);
+  border: 1px solid rgba(124, 77, 255, 0.2);
+  margin-bottom: 60px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.hero-banner::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(124, 77, 255, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: var(--text2);
+  margin-bottom: 24px;
+  max-width: 760px;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--glass-strong);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Typography */
+h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 70px 0 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border);
+  letter-spacing: -0.02em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  scroll-margin-top: 30px;
+}
+
+h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 48px 0 18px;
+  color: var(--accent-cyan);
+  letter-spacing: -0.01em;
+  scroll-margin-top: 30px;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 32px 0 14px;
+  color: var(--text);
+  scroll-margin-top: 30px;
+}
+
+h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 22px 0 10px;
+  color: var(--accent-light);
+}
+
+p {
+  margin-bottom: 18px;
+  color: var(--text);
+}
+
+a {
+  color: var(--accent-light);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  border-bottom-color: var(--accent-light);
+  color: var(--accent-cyan);
+}
+
+strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+em {
+  color: var(--text2);
+  font-style: italic;
+}
+
+ul, ol {
+  margin: 14px 0 20px 24px;
+}
+
+li {
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 50px 0;
+}
+
+/* Callout Alerts */
+.callout {
+  padding: 18px 24px;
+  margin: 24px 0;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border-left: 4px solid var(--accent);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.callout-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.callout.callout-tip {
+  border-left-color: var(--accent-emerald);
+  background: rgba(16, 185, 129, 0.06);
+}
+.callout.callout-tip .callout-title { color: var(--accent-emerald); }
+
+.callout.callout-warning {
+  border-left-color: var(--accent-rose);
+  background: rgba(244, 63, 94, 0.06);
+}
+.callout.callout-warning .callout-title { color: var(--accent-rose); }
+
+.callout.callout-info {
+  border-left-color: var(--accent-cyan);
+  background: rgba(0, 210, 255, 0.06);
+}
+.callout.callout-info .callout-title { color: var(--accent-cyan); }
+
+.callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* Diagrams and Flowcharts */
+.diagram-box {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin: 24px 0;
+  overflow-x: auto;
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #a5b4fc;
+}
+
+/* Code Blocks */
+pre {
+  position: relative;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 20px 20px;
+  margin: 22px 0;
+  overflow-x: auto;
+  font-family: var(--font-code);
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: var(--code-text);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+code {
+  background: var(--glass-strong);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: var(--font-code);
+  font-size: 0.85em;
+  color: var(--accent-cyan);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text2);
+  padding: 4px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: var(--font-main);
+  transition: all 0.2s ease;
+  z-index: 5;
+}
+
+.copy-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.copy-btn.copied {
+  background: var(--accent-emerald) !important;
+  color: #0b0d17 !important;
+  border-color: var(--accent-emerald) !important;
+}
+
+/* Tables */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 24px 0;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--table-bg);
+  font-size: 0.88rem;
+}
+
+th {
+  background: rgba(124, 77, 255, 0.12);
+  padding: 14px 18px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--accent-light);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+td {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background: var(--glass);
+  color: var(--text);
+}
+
+/* Interactive Playground Widget */
+.playground-card {
+  background: var(--bg2);
+  border: 1px solid var(--border-hover);
+  border-radius: 16px;
+  margin: 32px 0;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.playground-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+}
+
+.playground-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.playground-run-btn {
+  background: var(--accent-emerald);
+  color: #0b0d17;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.playground-run-btn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+.playground-editor-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 250px;
+}
+
+@media (max-width: 800px) {
+  .playground-editor-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+.playground-textarea {
+  width: 100%;
+  height: 100%;
+  min-height: 250px;
+  background: var(--code-bg);
+  border: none;
+  border-right: 1px solid var(--border);
+  color: #f1f3f9;
+  font-family: var(--font-code);
+  font-size: 0.82rem;
+  padding: 16px;
+  outline: none;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.playground-preview-frame {
+  width: 100%;
+  height: 100%;
+  min-height: 250px;
+  border: none;
+  background: #ffffff;
+}
+
+/* Quiz Box */
+.quiz-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin: 32px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.quiz-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.quiz-question {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-option {
+  padding: 12px 18px;
+  background: var(--glass-strong);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  transition: all 0.2s;
+  user-select: none;
+  color: var(--text);
+}
+
+.quiz-option:hover {
+  background: var(--sidebar-hover);
+  border-color: var(--accent);
+}
+
+.quiz-option.correct {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: var(--accent-emerald) !important;
+  color: var(--accent-emerald) !important;
+}
+
+.quiz-option.wrong {
+  background: rgba(244, 63, 94, 0.15) !important;
+  border-color: var(--accent-rose) !important;
+  color: var(--accent-rose) !important;
+}
+
+.quiz-feedback {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: none;
+}
+
+/* Resume Toast */
+#resume-toast {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--bg2);
+  border: 1px solid var(--border-hover);
+  padding: 14px 22px;
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 0.88rem;
+  z-index: 10000;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#resume-toast:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Print Styles */
+@media print {
+  .sidebar, .sidebar-toggle, #progress-bar, .copy-btn, #resume-toast, .playground-header, .playground-run-btn {
+    display: none !important;
+  }
+  .content {
+    margin-left: 0 !important;
+    padding: 20px !important;
+    max-width: 100% !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  h1, h2, h3 {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    background: none !important;
+  }
+  pre {
+    background: #f8fafc !important;
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .sidebar-toggle {
+    display: flex;
+  }
+  .content {
+    margin-left: 0;
+    padding: 70px 20px 80px;
+  }
+  .hero-title {
+    font-size: 2rem;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-light);
+}
+</style>
+</head>
+<body>
+
+<!-- Reading Progress Bar -->
+<div id="progress-bar"></div>
+
+<!-- Mobile Drawer Toggle Button -->
+<button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Mundarijani ochish">&#9776;</button>
+
+<!-- Navigation Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="brand-badge"><span class="dot"></span> Astra Academy</div>
+    <div class="sidebar-title">⚡ Frontend Mastery</div>
+    <div class="sidebar-controls">
+      <button onclick="toggleTheme()" id="theme-btn" title="Mavzuni almashtirish (T)">&#9789; Dark</button>
+      <button onclick="changeFontSize(-1)" title="Shriftni kichiklashtirish">A-</button>
+      <button onclick="changeFontSize(1)" title="Shriftni kattalashtirish">A+</button>
+      <button onclick="exportPDF()" title="PDF qilib yuklab olish">PDF</button>
+    </div>
+  </div>
+
+  <div class="completion-counter" id="completion-counter">
+    <span>O'qilgan: <strong>0</strong> / 15 bob</span>
+    <div class="completion-bar"><div class="completion-bar-inner" id="completion-bar-inner"></div></div>
+  </div>
+
+  <div class="sidebar-search">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-box" placeholder="Mavzularni qidirish... ( / )" oninput="filterSidebar(this.value)">
+  </div>
+
+  <div class="sidebar-items" id="sidebar-items">
+
+    <!-- 1-bob -->
+    <div class="sidebar-chapter" data-index="0">
+      <div class="sidebar-h1" data-id="1-bob-frontend-dunyosi-va-web">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="0" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#1-bob-frontend-dunyosi-va-web" class="ch-link">1-bob: Web Qanday Ishlaydi?</a>
+        <span class="reading-time">~12 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="0">
+        <a href="#brauzer-arxitekturasi" class="sidebar-h2">Brauzer qanday ishlaydi?</a>
+        <a href="#critical-rendering-path" class="sidebar-h2">Critical Rendering Path (CRP)</a>
+        <a href="#tarmoq-dns-tcp-http3" class="sidebar-h2">Tarmoq: DNS, TCP, TLS va HTTP/3</a>
+        <a href="#dom-va-cssom-qurilishi" class="sidebar-h2">DOM va CSSOM qurilishi</a>
+        <a href="#reflow-va-repaint-farqi" class="sidebar-h2">Reflow vs Repaint farqi</a>
+      </div>
+    </div>
+
+    <!-- 2-bob -->
+    <div class="sidebar-chapter" data-index="1">
+      <div class="sidebar-h1" data-id="2-bob-semantik-html5-va-a11y">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="1" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#2-bob-semantik-html5-va-a11y" class="ch-link">2-bob: Semantik HTML5 & a11y</a>
+        <span class="reading-time">~10 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="1">
+        <a href="#div-soup-muammosi" class="sidebar-h2">&quot;Div Soup&quot; muammosi va semantika</a>
+        <a href="#accessibility-a11y-va-aria" class="sidebar-h2">Accessibility (a11y) va ARIA rollari</a>
+        <a href="#modern-form-validatsiyasi" class="sidebar-h2">Zamonaviy Form validatsiyasi</a>
+        <a href="#seo-va-open-graph-meta" class="sidebar-h2">SEO va Open Graph metama'lumotlari</a>
+      </div>
+    </div>
+
+    <!-- 3-bob -->
+    <div class="sidebar-chapter" data-index="2">
+      <div class="sidebar-h1" data-id="3-bob-css3-flexbox-grid-chuqur">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="2" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#3-bob-css3-flexbox-grid-chuqur" class="ch-link">3-bob: Professional CSS3, Flexbox & Grid</a>
+        <span class="reading-time">~15 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="2">
+        <a href="#box-model-va-box-sizing" class="sidebar-h2">Box Model va box-sizing: border-box</a>
+        <a href="#stacking-context-va-zindex-siri" class="sidebar-h2">Stacking Context va z-index siri</a>
+        <a href="#flexbox-1d-layout-mastery" class="sidebar-h2">Flexbox: 1D Layout Mastery</a>
+        <a href="#css-grid-2d-layout-mastery" class="sidebar-h2">CSS Grid: 2D Layout Mastery</a>
+        <a href="#css-custom-properties-variables" class="sidebar-h2">CSS Custom Properties (Variables)</a>
+      </div>
+    </div>
+
+    <!-- 4-bob -->
+    <div class="sidebar-chapter" data-index="3">
+      <div class="sidebar-h1" data-id="4-bob-tailwind-va-modern-animatsiyalar">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="3" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#4-bob-tailwind-va-modern-animatsiyalar" class="ch-link">4-bob: CSS Arxitekturasi & Tailwind</a>
+        <span class="reading-time">~14 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="3">
+        <a href="#bem-va-css-modullari" class="sidebar-h2">BEM va CSS Modullari</a>
+        <a href="#tailwind-mentaliteti" class="sidebar-h2">Tailwind CSS nima uchun sanoat standarti?</a>
+        <a href="#60fps-animatsiyalar-gpu-acceleration" class="sidebar-h2">60 FPS animatsiyalar va GPU acceleration</a>
+        <a href="#css-container-queries" class="sidebar-h2">CSS Container Queries — Yangi davr</a>
+      </div>
+    </div>
+
+    <!-- 5-bob -->
+    <div class="sidebar-chapter" data-index="4">
+      <div class="sidebar-h1" data-id="5-bob-javascript-core-v8">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="4" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#5-bob-javascript-core-v8" class="ch-link">5-bob: JS Core: V8 va Closures</a>
+        <span class="reading-time">~18 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="4">
+        <a href="#v8-dvigateli-va-just-in-time" class="sidebar-h2">V8 dvigateli va JIT kompilyatsiya</a>
+        <a href="#execution-context-va-call-stack" class="sidebar-h2">Execution Context va Call Stack</a>
+        <a href="#scope-chain-va-closures" class="sidebar-h2">Scope Chain va Closures (Chuqur)</a>
+        <a href="#hoisting-va-temporal-dead-zone" class="sidebar-h2">Hoisting va TDZ (Temporal Dead Zone)</a>
+      </div>
+    </div>
+
+    <!-- 6-bob -->
+    <div class="sidebar-chapter" data-index="5">
+      <div class="sidebar-h1" data-id="6-bob-asinxron-js-va-event-loop">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="5" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#6-bob-asinxron-js-va-event-loop" class="ch-link">6-bob: Event Loop & Asinxron JS</a>
+        <span class="reading-time">~16 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="5">
+        <a href="#event-loop-microtasks-vs-macrotasks" class="sidebar-h2">Event Loop: Microtasks vs Macrotasks</a>
+        <a href="#promises-va-async-await-chuqur" class="sidebar-h2">Promises va async/await ichki mexanizmi</a>
+        <a href="#abortcontroller-bilan-requestlarni-bekor-qilish" class="sidebar-h2">AbortController bilan so'rovlarni bekor qilish</a>
+        <a href="#error-handling-va-retry-pattern" class="sidebar-h2">Xatolarni boshqarish va Retry Pattern</a>
+      </div>
+    </div>
+
+    <!-- 7-bob -->
+    <div class="sidebar-chapter" data-index="6">
+      <div class="sidebar-h1" data-id="7-bob-dom-va-web-apis">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="6" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#7-bob-dom-va-web-apis" class="ch-link">7-bob: DOM & Zamonaviy Web APIs</a>
+        <span class="reading-time">~14 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="6">
+        <a href="#dom-operatsiyalarini-tezlashtirish" class="sidebar-h2">DOM operatsiyalarini optimallashtirish</a>
+        <a href="#intersection-observer-api" class="sidebar-h2">IntersectionObserver: Cheksiz scroll va lazy-loading</a>
+        <a href="#resize-observer-va-mutation-observer" class="sidebar-h2">ResizeObserver va MutationObserver</a>
+        <a href="#web-storage-indexeddb-va-cache" class="sidebar-h2">Web Storage, IndexedDB va Cache API</a>
+      </div>
+    </div>
+
+    <!-- 8-bob -->
+    <div class="sidebar-chapter" data-index="7">
+      <div class="sidebar-h1" data-id="8-bob-typescript-mastery">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="7" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#8-bob-typescript-mastery" class="ch-link">8-bob: TypeScript Mastery</a>
+        <span class="reading-time">~16 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="7">
+        <a href="#nega-faqat-javascript-yetarli-emas" class="sidebar-h2">Nega productionda faqat JS yetarli emas?</a>
+        <a href="#generics-qudrati" class="sidebar-h2">Generics qudrati</a>
+        <a href="#utility-types-partial-pick-omit-record" class="sidebar-h2">Utility Types: Partial, Pick, Omit, Record</a>
+        <a href="#discriminated-unions-va-narrowing" class="sidebar-h2">Discriminated Unions va Type Narrowing</a>
+      </div>
+    </div>
+
+    <!-- 9-bob -->
+    <div class="sidebar-chapter" data-index="8">
+      <div class="sidebar-h1" data-id="9-bob-react-fiber-arxitekturasi">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="8" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#9-bob-react-fiber-arxitekturasi" class="ch-link">9-bob: React Fiber & Reconciliation</a>
+        <span class="reading-time">~20 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="8">
+        <a href="#virtual-dom-va-reconciliation" class="sidebar-h2">Virtual DOM va Diffing algoritmi</a>
+        <a href="#react-fiber-daraxti-va-scheduller" class="sidebar-h2">React Fiber: To'xtatib bo'ladigan render</a>
+        <a href="#jsx-qanday-kompilyatsiya-boladi" class="sidebar-h2">JSX qanday kompilyatsiya bo'ladi?</a>
+        <a href="#re-render-sabablari-va-profiling" class="sidebar-h2">Ortiqcha re-render sabablari va profiling</a>
+      </div>
+    </div>
+
+    <!-- 10-bob -->
+    <div class="sidebar-chapter" data-index="9">
+      <div class="sidebar-h1" data-id="10-bob-react-hooks-chuqur">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="9" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#10-bob-react-hooks-chuqur" class="ch-link">10-bob: React Hooks Chuqur Tahlil</a>
+        <span class="reading-time">~18 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="9">
+        <a href="#useeffect-ning-yashirin-tuzoqlari" class="sidebar-h2">useEffect ning yashirin tuzoqlari</a>
+        <a href="#usememo-va-usecallback-qachon-kerak" class="sidebar-h2">useMemo va useCallback: Qachon kerak va qachon ziyon?</a>
+        <a href="#useref-va-forwardref" class="sidebar-h2">useRef va forwardRef sirlari</a>
+        <a href="#professional-custom-hooklar-yaratish" class="sidebar-h2">Professional Custom Hooklar yaratish</a>
+      </div>
+    </div>
+
+    <!-- 11-bob -->
+    <div class="sidebar-chapter" data-index="10">
+      <div class="sidebar-h1" data-id="11-bob-state-management-zustand-tanstack">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="10" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#11-bob-state-management-zustand-tanstack" class="ch-link">11-bob: State: Zustand & TanStack</a>
+        <span class="reading-time">~15 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="10">
+        <a href="#client-vs-server-state-fundamental-farq" class="sidebar-h2">Client State vs Server State</a>
+        <a href="#zustand-yengil-va-tezkor-global-state" class="sidebar-h2">Zustand: Boilerplate'siz global state</a>
+        <a href="#tanstack-query-keshlash-va-optimistic-updates" class="sidebar-h2">TanStack Query: Kesh, Stale-time va Optimistic Updates</a>
+        <a href="#redux-toolkit-qachon-ishlatiladi" class="sidebar-h2">Redux Toolkit: Katta korporativ loyihalarda o'rni</a>
+      </div>
+    </div>
+
+    <!-- 12-bob -->
+    <div class="sidebar-chapter" data-index="11">
+      <div class="sidebar-h1" data-id="12-bob-nextjs-va-rsc">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="11" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#12-bob-nextjs-va-rsc" class="ch-link">12-bob: Next.js & Server Components</a>
+        <span class="reading-time">~20 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="11">
+        <a href="#csr-ssr-ssg-va-isr-taqqoslashi" class="sidebar-h2">CSR vs SSR vs SSG vs ISR taqqoslashi</a>
+        <a href="#react-server-components-rsc" class="sidebar-h2">React Server Components (RSC) nima va nima uchun kerak?</a>
+        <a href="#nextjs-app-router-arxitekturasi" class="sidebar-h2">Next.js App Router arxitekturasi</a>
+        <a href="#server-actions-va-streaming-suspense" class="sidebar-h2">Server Actions va Streaming with Suspense</a>
+      </div>
+    </div>
+
+    <!-- 13-bob -->
+    <div class="sidebar-chapter" data-index="12">
+      <div class="sidebar-h1" data-id="13-bob-performance-core-web-vitals">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="12" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#13-bob-performance-core-web-vitals" class="ch-link">13-bob: Performance & Web Vitals</a>
+        <span class="reading-time">~15 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="12">
+        <a href="#core-web-vitals-lcp-inp-cls" class="sidebar-h2">Core Web Vitals: LCP, INP va CLS</a>
+        <a href="#bundle-hajmini-qisqartirish-va-tree-shaking" class="sidebar-h2">Bundle hajmini qisqartirish va Tree Shaking</a>
+        <a href="#rasmlar-va-shriftlar-optimallashtiruvi" class="sidebar-h2">Rasmlar (WebP/AVIF) va font optimallashtiruvi</a>
+        <a href="#lighthouse-100-ballik-strategiya" class="sidebar-h2">Lighthouse 100/100 qilish amaliyoti</a>
+      </div>
+    </div>
+
+    <!-- 14-bob -->
+    <div class="sidebar-chapter" data-index="13">
+      <div class="sidebar-h1" data-id="14-bob-testlash-vitest-playwright">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="13" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#14-bob-testlash-vitest-playwright" class="ch-link">14-bob: Testlash: Vitest & Playwright</a>
+        <span class="reading-time">~14 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="13">
+        <a href="#test-piramidasi-unit-integration-e2e" class="sidebar-h2">Test piramidasi: Unit vs Integration vs E2E</a>
+        <a href="#vitest-va-react-testing-library" class="sidebar-h2">Vitest va React Testing Library</a>
+        <a href="#playwright-bilan-e2e-avtomatlashtirish" class="sidebar-h2">Playwright bilan ishonchli E2E testlar</a>
+        <a href="#husky-lint-staged-va-ci-quvurlari" class="sidebar-h2">Husky, lint-staged va CI quvurlari</a>
+      </div>
+    </div>
+
+    <!-- 15-bob -->
+    <div class="sidebar-chapter" data-index="14">
+      <div class="sidebar-h1" data-id="15-bob-production-va-karyera">
+        <label class="ch-check" onclick="event.stopPropagation()">
+          <input type="checkbox" data-ch="14" onchange="updateCompletion()">
+          <span class="checkmark"></span>
+        </label>
+        <span class="arrow">&#9654;</span>
+        <a href="#15-bob-production-va-karyera" class="ch-link">15-bob: Production, Xavfsizlik & Karyera</a>
+        <span class="reading-time">~18 min</span>
+      </div>
+      <div class="sidebar-children" data-parent="14">
+        <a href="#frontend-xavfsizligi-xss-csrf-csp" class="sidebar-h2">Frontend xavfsizligi: XSS, CSRF va CSP</a>
+        <a href="#docker-va-ci-cd-avtomatlashtirish" class="sidebar-h2">Docker va GitHub Actions CI/CD</a>
+        <a href="#deploy-vercel-cloudflare-pages-va-vps" class="sidebar-h2">Deploy: Vercel, Cloudflare Pages va VPS</a>
+        <a href="#astra-academy-xulosasi-va-karyera" class="sidebar-h2">Astra Academy Karyera Maslahatlari va Portfolio</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sidebar-footer">
+    <kbd>J</kbd> keyingi &nbsp; <kbd>K</kbd> oldingi &nbsp; <kbd>T</kbd> mavzu<br>
+    <kbd>/</kbd> qidiruv &nbsp; <kbd>Esc</kbd> yopish
+  </div>
+</nav>
+
+<!-- Main Reading Content -->
+<main class="content">
+  <div class="content-inner" id="content-inner">
+
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+      <div class="brand-badge"><span class="dot"></span> Astra Academy Rasmiy Qo'llanmasi</div>
+      <h1 class="hero-title">Zamonaviy Frontend Dasturlash: Noldan Productiongacha</h1>
+      <p class="hero-subtitle">
+        HTML/CSS asoslaridan boshlab, JavaScript V8 dvigateli chuqurliklari, React Fiber arxitekturasi, Next.js Server Components, Performance tuningu va xavfsiz production tizimlarigacha bo'lgan to'liq amaliy qo'llanma.
+      </p>
+      <div class="hero-meta">
+        <span class="hero-tag">🎓 Muallif: Astra Academy</span>
+        <span class="hero-tag">⚡ 15 ta Katta Amaliy Bob</span>
+        <span class="hero-tag">💻 Interaktiv Kod Sandboxi</span>
+        <span class="hero-tag">🚀 2026 Yangilanishi</span>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         1-BOB: WEB QANDAY ISHLAYDI?
+         ==================================================================== -->
+    <h1 id="1-bob-frontend-dunyosi-va-web">1-bob: Frontend Dasturchi Dunyosi va Web Qanday Ishlaydi?</h1>
+
+    <h2 id="brauzer-arxitekturasi">Brauzer qanday ishlaydi?</h2>
+    <p>
+      Ko'pchilik o'rganuvchilar frontendni shunchaki chiroyli tugmalar va ranglar deb o'ylashadi. Biroq <strong>Senior Frontend muhandis</strong> bo'lish uchun brauzer qanday qilib siz yozgan bir necha qator kodni monitor ekranida harakatlanuvchi piksellarga aylantirishini (Pixel Pipeline) ich-ichidan tushunishingiz shart.
+    </p>
+    <p>
+      Zamonaviy brauzerlar (Google Chrome, Safari, Firefox) bir nechta parallel jarayonlardan (Multi-Process Architecture) iborat:
+    </p>
+    <ul>
+      <li><strong>Browser Process</strong> — Brauzer oynasining boshqaruv paneli (URL satri, tabs, orqaga/oldinga tugmalari) va tarmoq/fayl resurslariga kirishni boshqaradi.</li>
+      <li><strong>Renderer Process</strong> — Tab ichidagi veb sahifaning HTML, CSS, JavaScript kodlarini o'qiydi va uni ekranda chizadi. Xavfsizlik maqsadida har bir tab o'zining alohida Sandbox qilingan Renderer jarayonida ishlaydi.</li>
+      <li><strong>GPU Process</strong> — Murakkab 3D va 2D grafik hisob-kitoblarni, CSS transform va animatsiyalarni asosiy protsessor (CPU) dan ajratilgan holda o'ta tezkor chizib beradi.</li>
+    </ul>
+
+    <h2 id="critical-rendering-path">Critical Rendering Path (CRP)</h2>
+    <p>
+      Foydalanuvchi URL manzilini kiritgan soniyadan boshlab to ekranda birinchi piksel paydo bo'lguncha kechadigan zanjir <strong>Critical Rendering Path</strong> deyiladi:
+    </p>
+
+    <div class="diagram-box">
+URL Kiritildi -> DNS Lookup -> TCP Handshake -> TLS Handshake -> HTTP Request
+                                                                       |
++----------------------------------------------------------------------+
+|
+v
+HTML Baytlari -> Belgilar (Characters) -> Tokenlar -> Tugunlar (Nodes) -> DOM Daraxti
+CSS Baytlari  -> Belgilar (Characters) -> Tokenlar -> Tugunlar (Nodes) -> CSSOM Daraxti
+                                                                       |
+DOM + CSSOM = RENDER TREE (Faqat ko'rinadigan elementlar) <------------+
+                     |
+                     v
+LAYOUT (Reflow): Har bir elementning ekrandagi aniq koordinata va o'lchamini hisoblash
+                     |
+                     v
+PAINT (Repaint): Ranglar, chegaralar, matnlar va rasmlarni qatlamlarga (Layers) chizish
+                     |
+                     v
+COMPOSITE: GPU qatlamlarni birlashtiradi va ekranga yakuniy freymni chiqaradi (60-120 FPS)
+    </div>
+
+    <div class="callout callout-tip">
+      <div class="callout-title">💡 Pro Maslahat: display: none vs visibility: hidden</div>
+      <p>
+        <code>display: none</code> berilgan element <strong>DOM</strong> daraxtida bo'ladi, lekin <strong>Render Tree</strong> ga kirmaydi! Shu sababli u ekranda hech qanday joy egallamaydi va layout hisob-kitobida qatnashmaydi. <code>visibility: hidden</code> esa Render Tree da bo'ladi, joy egallaydi, faqat bo'yalmaydi (Paint bo'lmaydi).
+      </p>
+    </div>
+
+    <h2 id="tarmoq-dns-tcp-http3">Tarmoq: DNS, TCP, TLS va HTTP/3</h2>
+    <p>
+      Brauzer serverdan ma'lumot olishi uchun quyidagi bosqichlarni bosib o'tadi:
+    </p>
+    <ol>
+      <li><strong>DNS qidiruvi (Domain Name System):</strong> Inson tushunadigan <code>astra-academy.uz</code> manzilini kompyuterlar tushunadigan IP manzilga (masalan, <code>104.21.45.12</code>) aylantirish. Brauzer avval o'z keshidan, keyin OS keshidan va nihoyat ISP DNS resolveridan so'raydi.</li>
+      <li><strong>TCP 3-Way Handshake:</strong> Ishonchli aloqa kanali o'rnatiladi (SYN -> SYN-ACK -> ACK).</li>
+      <li><strong>TLS Handshake (HTTPS):</strong> Sayt xavfsizligini ta'minlash uchun assimetrik shifrlash kalitlari almashinadi.</li>
+      <li><strong>HTTP/2 va HTTP/3 inqilobi:</strong> Qadimgi HTTP/1.1 da bitta ulanishda faqat bitta fayl ketma-ket yuklanar edi (Head-of-line blocking). Zamonaviy HTTP/2 multiplekslash (bitta ulanishda 100 lab faylni bir vaqtda parallel yuklash) imkonini berdi. HTTP/3 esa TCP o'rniga <strong>UDP asosidagi QUIC</strong> protokoliga o'tib, tarmoq almashganda (Wi-Fi dan 4G ga o'tganda) ulanish uzilmasligini ta'minladi.</li>
+    </ol>
+
+    <h2 id="dom-va-cssom-qurilishi">DOM va CSSOM qurilishi</h2>
+    <p>
+      HTML parser baytma-bayt oqimni (stream) o'qiydi. Agar u tashqi skriptga duch kelsa (<code>&lt;script src="..."&gt;</code>), u darhol HTML tahlilini to'xtatadi (Parse-blocking). Chunki JavaScript DOM ni o'zgartirishi mumkin!
+    </p>
+    <p>
+      Buning oldini olish uchun zamonaviy frontendda skriptlarga <code>defer</code> yoki <code>async</code> atributlari beriladi:
+    </p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Atribut</th>
+            <th>Yuklanish (Download)</th>
+            <th>Bajarilish (Execution)</th>
+            <th>Tartib (Order)</th>
+            <th>Qachon ishlatiladi?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>Oddiy &lt;script&gt;</code></td>
+            <td>HTML ni to'xtatadi (Bloklaydi)</td>
+            <td>Darhol bajariladi</td>
+            <td>Uchrash tartibida</td>
+            <td>Kritik bo'lmagan hollarda tavsiya etilmaydi</td>
+          </tr>
+          <tr>
+            <td><code>&lt;script async&gt;</code></td>
+            <td>HTML bilan parallel yuklanadi</td>
+            <td>Yuklanishi bilanoq HTML ni to'xtatib bajariladi</td>
+            <td>Kim birinchi kelsa shu (Kafolatsiz)</td>
+            <td>Mustaqil tahlil skriptlari (Google Analytics)</td>
+          </tr>
+          <tr>
+            <td><code>&lt;script defer&gt;</code></td>
+            <td>HTML bilan parallel yuklanadi</td>
+            <td>HTML to'liq o'qib bo'lingach (DOMReady) bajariladi</td>
+            <td>HTML dagi aniq tartibda</td>
+            <td>Asosiy frontend JavaScript kodlari (Tavsiya!)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="reflow-va-repaint-farqi">Reflow vs Repaint farqi</h2>
+    <p>
+      Frontend animatsiyalarining sekinlashishi va telefon qotib qolishining 90% sababi — keraksiz <strong>Reflow</strong> chaqirishdir:
+    </p>
+    <ul>
+      <li><strong>Reflow (Layout):</strong> Sahifadagi elementlarning kengligi (<code>width</code>), balandligi (<code>height</code>), chetlari (<code>margin</code>), joylashuvi (<code>top</code>, <code>left</code>) o'zgarganda sodir bo'ladi. Butun sahifaning geometriyasi qayta hisoblanadi. Bu protsessor uchun juda qimmat operatsiya!</li>
+      <li><strong>Repaint:</strong> Elementning geometriyasi o'zgarmasdan, faqat tashqi ko'rinishi (<code>color</code>, <code>background-color</code>, <code>box-shadow</code>) o'zgarganda sodir bo'ladi.</li>
+      <li><strong>Composite Only (Super Fast!):</strong> Faqatgina <code>transform</code> va <code>opacity</code> xossalari o'zgarganda, brauzer na Reflow, na Repaint qiladi! Barcha ish GPU xotirasida freymlar o'rtasida suriladi. Bu 60 va 120 FPS silliq animatsiyalarning poydevoridir!</li>
+    </ul>
+
+    <!-- Interactive Live Playground for Chapter 1 -->
+    <div class="playground-card">
+      <div class="playground-header">
+        <div class="playground-title">⚡ Jonli Sinov Maydoni: DOM & CSS Animatsiyasi</div>
+        <button class="playground-run-btn" onclick="runPlayground(1)">▶ Kodni Ishga Tushirish</button>
+      </div>
+      <div class="playground-editor-wrap">
+        <textarea id="play-code-1" class="playground-textarea" spellcheck="false">
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    background: #0d1117;
+    color: white;
+    margin: 0;
+  }
+  .box {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #7c4dff, #00d2ff);
+    box-shadow: 0 0 20px rgba(124, 77, 255, 0.5);
+    /* GPU Accelerated 60 FPS animation: faqat transform! */
+    animation: rotateBox 3s infinite ease-in-out;
+  }
+  @keyframes rotateBox {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.3) rotate(180deg); }
+    100% { transform: scale(1) rotate(360deg); }
+  }
+  p { margin-top: 15px; font-size: 13px; color: #a5b4fc; }
+</style>
+</head>
+<body>
+  <div class="box"></div>
+  <p>Astra Academy GPU Accelerated transform misoli</p>
+</body>
+</html>
+        </textarea>
+        <iframe id="play-frame-1" class="playground-preview-frame"></iframe>
+      </div>
+    </div>
+
+    <!-- Quiz 1 -->
+    <div class="quiz-card" id="quiz-1">
+      <div class="quiz-badge">Bilimni Tekshirish • 1-bob</div>
+      <div class="quiz-question">Qaysi CSS xossasi eng kam resurs sarflaydi va Reflow hamda Repaint chaqirmasdan to'g'ridan-to'g'ri GPU da bajariladi?</div>
+      <div class="quiz-options">
+        <div class="quiz-option" onclick="checkQuiz(1, this, false)">A) width va height</div>
+        <div class="quiz-option" onclick="checkQuiz(1, this, false)">B) top va left</div>
+        <div class="quiz-option" onclick="checkQuiz(1, this, true)">C) transform va opacity</div>
+        <div class="quiz-option" onclick="checkQuiz(1, this, false)">D) margin va padding</div>
+      </div>
+      <div class="quiz-feedback" id="quiz-feedback-1"></div>
+    </div>
+
+    <hr>
+
+    <!-- ====================================================================
+         2-BOB: SEMANTIK HTML5 VA ACCESSIBILITY
+         ==================================================================== -->
+    <h1 id="2-bob-semantik-html5-va-a11y">2-bob: Zamonaviy Semantik HTML5 va Accessibility (a11y)</h1>
+
+    <h2 id="div-soup-muammosi">&quot;Div Soup&quot; muammosi va semantika</h2>
+    <p>
+      Dasturlashga yangi kirganlarning eng katta xatosi — hamma joyga <code>&lt;div&gt;</code> va <code>&lt;span&gt;</code> ishlatishdir. Bunga industriyada <strong>Div Soup (Div sho'rvasi)</strong> deyiladi.
+    </p>
+    <p>
+      Semantik HTML teglari shunchaki kodni chiroyli ko'rsatmaydi — ular 3 ta o'ta muhim vazifani bajaradi:
+    </p>
+    <ul>
+      <li><strong>SEO (Search Engine Optimization):</strong> Google botlari sahifaning sarlavhalari, asosiy maqolasi va navigatsiyasini aniq tushunadi.</li>
+      <li><strong>Screen Readers (Ekran o'quvchilar):</strong> Ko'rish qobiliyati cheklangan insonlar uchun maxsus dasturlar (NVDA, VoiceOver) sahifaning mazmunini o'qib berishi uchun semantika yagona mayoqdir.</li>
+      <li><strong>Maintainability (Kodni qo'llab-quvvatlash):</strong> Jamoada boshqa muhandislar kodni ko'rganida qaysi blok nima ekanini bir soniyada anglaydi.</li>
+    </ul>
+
+    <pre><code class="language-html">&lt;!-- YOMON AMALIYOT (Div sho'rvasi) --&gt;
+&lt;div class="header"&gt;
+  &lt;div class="nav"&gt;
+    &lt;div class="nav-item" onclick="goHome()"&gt;Bosh sahifa&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- ASTRA ACADEMY STANDARTI (Toza Semantika) --&gt;
+&lt;header role="banner"&gt;
+  &lt;nav aria-label="Asosiy navigatsiya"&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="/"&gt;Bosh sahifa&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="/kurslar"&gt;Kurslar&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+&lt;main id="main-content"&gt;
+  &lt;article&gt;
+    &lt;h1&gt;Frontend Muhandisligi&lt;/h1&gt;
+    &lt;time datetime="2026-09-17"&gt;17-Sentabr, 2026&lt;/time&gt;
+    &lt;section&gt;...&lt;/section&gt;
+  &lt;/article&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+  &lt;p&gt;&amp;copy; 2026 Astra Academy. Barcha huquqlar himoyalangan.&lt;/p&gt;
+&lt;/footer&gt;</code></pre>
+
+    <h2 id="accessibility-a11y-va-aria">Accessibility (a11y) va ARIA rollari</h2>
+    <p>
+      <strong>A11y</strong> — Accessibility so'zining qisqartmasi bo'lib ("A" va "y" harflari orasida 11 ta harf bor). G'arb bozorida (AQSH va Yevropa Ittifoqida) a11y standartlariga (WCAG 2.1 AA) javob bermaydigan saytlar uchun qonuniy jarimalar mavjud (ADA compliance).
+    </p>
+    <p>
+      ARIA (Accessible Rich Internet Applications) atributlarining 1-oltin qoidasi: <em>"Agar HTML da tabiiy semantik teg mavjud bo'lsa, hech qachon ARIA ishlatmang!"</em>. Masalan, <code>&lt;div role="button"&gt;</code> o'rniga oddiy <code>&lt;button&gt;</code> ishlatish kerak. Chunki haqiqiy tugma o'z-o'zidan Enter va Space tugmalarini tinglaydi va Tab bilan fokuslanadi.
+    </p>
+
+    <h2 id="modern-form-validatsiyasi">Zamonaviy Form validatsiyasi</h2>
+    <p>
+      Foydalanuvchi ma'lumotlarini qabul qilishda HTML5 ning ichki validatsiya mexanizmidan unumli foydalanish kerak:
+    </p>
+    <pre><code class="language-html">&lt;form id="registration-form" novalidate&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label for="user-email"&gt;Elektron pochta manzilingiz:&lt;/label&gt;
+    &lt;input 
+      type="email" 
+      id="user-email" 
+      name="email" 
+      required 
+      autocomplete="email"
+      placeholder="ali@example.com"
+      aria-describedby="email-hint email-error"
+    &gt;
+    &lt;small id="email-hint"&gt;Biz sizga spam xatlar yubormaymiz.&lt;/small&gt;
+    &lt;span id="email-error" class="error-msg" aria-live="polite"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;button type="submit"&gt;Ro'yxatdan o'tish&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+    <h2 id="seo-va-open-graph-meta">SEO va Open Graph metama'lumotlari</h2>
+    <p>
+      Saytingiz Telegram, Twitter, LinkedIn yoki Facebook da ulashilganda chiroyli rasm, sarlavha va tavsif chiqishi uchun quyidagi meta teglarni doim to'liq to'ldirish kerak:
+    </p>
+    <pre><code class="language-html">&lt;!-- Asosiy Meta Teglar --&gt;
+&lt;title&gt;Astra Academy — Zamonaviy Frontend Dasturlash&lt;/title&gt;
+&lt;meta name="description" content="Astra Academy bilan noldan professional darajagacha frontend mutaxassisi bo'ling."&gt;
+
+&lt;!-- Open Graph (Facebook, Telegram, Discord, LinkedIn) --&gt;
+&lt;meta property="og:type" content="website"&gt;
+&lt;meta property="og:url" content="https://astra-academy.uz/"&gt;
+&lt;meta property="og:title" content="Astra Academy — Zamonaviy Frontend Dasturlash"&gt;
+&lt;meta property="og:description" content="To'liq interaktiv qo'llanma va video kurslar."&gt;
+&lt;meta property="og:image" content="https://astra-academy.uz/og-banner.jpg"&gt;
+
+&lt;!-- Twitter Cards --&gt;
+&lt;meta name="twitter:card" content="summary_large_image"&gt;
+&lt;meta name="twitter:title" content="Astra Academy — Frontend Mastery"&gt;
+&lt;meta name="twitter:image" content="https://astra-academy.uz/twitter-card.jpg"&gt;</code></pre>
+
+    <div class="callout callout-info">
+      <div class="callout-title">ℹ️ SEO Haqiqati</div>
+      <p>Google qidiruv roboti sahifadagi faqat bitta <code>&lt;h1&gt;</code> sarlavhani asosiy mavzu deb hisoblaydi. Sahifada bir nechta h1 bo'lmasligi kerak, uning o'rniga ierarxik <code>h2</code>, <code>h3</code> lardan foydalaning.</p>
+    </div>
+
+    <hr>
+
+    <!-- ====================================================================
+         3-BOB: PROFESSIONAL CSS3, FLEXBOX VA GRID
+         ==================================================================== -->
+    <h1 id="3-bob-css3-flexbox-grid-chuqur">3-bob: Professional CSS3, Flexbox va Grid Chuqur Tahlil</h1>
+
+    <h2 id="box-model-va-box-sizing">Box Model va box-sizing: border-box</h2>
+    <p>
+      CSS ning poydevori — Box Model. Har bir element 4 ta to'rtburchakdan iborat: <strong>Content</strong>, <strong>Padding</strong>, <strong>Border</strong> va <strong>Margin</strong>.
+    </p>
+    <div class="diagram-box">
++----------------------------------------------------+
+| MARGIN (Elementlar orasidagi tashqi bo'shliq)      |
+|   +--------------------------------------------+   |
+|   | BORDER (Elementning chegarasi)             |   |
+|   |   +------------------------------------+   |   |
+|   |   | PADDING (Chegara va matn oralig'i) |   |   |
+|   |   |   +----------------------------+   |   |   |
+|   |   |   | CONTENT (Matn yoki rasm)   |   |   |   |
+|   |   |   +----------------------------+   |   |   |
+|   |   +------------------------------------+   |   |
+|   +--------------------------------------------+   |
++----------------------------------------------------+
+    </div>
+    <p>
+      Standart CSS da (<code>content-box</code>): Agar elementga <code>width: 200px</code> bersangiz va unga <code>padding: 20px</code> qo'shsangiz, uning ekrandagi haqiqiy kengligi 240px bo'lib ketadi va layout buziladi!
+      Shu sababli har bir zamonaviy loyiha quyidagi reset bilan boshlanadi:
+    </p>
+    <pre><code class="language-css">*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}</code></pre>
+
+    <h2 id="stacking-context-va-zindex-siri">Stacking Context va z-index siri</h2>
+    <p>
+      Ko'p dasturchilar <code>z-index: 9999999</code> yozsa ham element orqada qolib ketishidan shikoyat qilishadi. Sababi: <strong>Stacking Context (Taxlam Konteksti)</strong> tushunchasini bilmaslikdir.
+    </p>
+    <p>
+      Element quyidagi hollarda yangi Stacking Context yaratadi:
+    </p>
+    <ul>
+      <li><code>position: relative/absolute</code> va <code>z-index</code> <code>auto</code> emas;</li>
+      <li><code>position: fixed</code> yoki <code>sticky</code>;</li>
+      <li><code>opacity</code> 1 dan kichik bo'lsa;</li>
+      <li><code>transform</code>, <code>filter</code>, yoki <code>perspective</code> berilgan bo'lsa.</li>
+    </ul>
+    <p>
+      Agar ona element o'zining alohida stacking kontekstida pastroq qavatda bo'lsa, uning ichidagi bolaning z-index qiymati milliard bo'lsa ham, u tashqi ona elementdan yuqoriga chiqa olmaydi!
+    </p>
+
+    <h2 id="flexbox-1d-layout-mastery">Flexbox: 1D Layout Mastery</h2>
+    <p>
+      Flexbox — bir o'lchamli (faqat qator YOKI faqat ustun) joylashtirish tizimi.
+    </p>
+    <pre><code class="language-css">.astra-navbar {
+  display: flex;
+  justify-content: space-between; /* Asosiy o'q (Main Axis) bo'yicha tarqatish */
+  align-items: center;            /* Ko'ndalang o'q (Cross Axis) bo'yicha markazlashtirish */
+  gap: 1.5rem;                    /* Elementlar orasidagi zamonaviy bo'shliq */
+}
+
+.nav-search {
+  flex: 1; /* Bo'sh qolgan barcha joyni egallash (grow: 1, shrink: 1, basis: 0) */
+}</code></pre>
+
+    <h2 id="css-grid-2d-layout-mastery">CSS Grid: 2D Layout Mastery</h2>
+    <p>
+      CSS Grid — ikki o'lchamli (bir vaqtning o'zida qatorlar VA ustunlar) tartiblash uchun mo'ljallangan qudratli tizim. 12 ustunli murakkab dashboardlar, mahsulot kartalari panjarasi uchun tengi yo'q.
+    </p>
+    <pre><code class="language-css">/* Dunyodagi eng mashhur Responsive Grid formulasi (Media querysiz!) */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}</code></pre>
+
+    <h2 id="css-custom-properties-variables">CSS Custom Properties (Variables)</h2>
+    <p>
+      CSS o'zgaruvchilari SASS o'zgaruvchilaridan farqli o'laroq brauzerda Runtime (ish vaqtida) yashaydi va JavaScript orqali bir lahzada o'zgartirilishi mumkin. Dark/Light theme larni yaratishda aynan shu texnologiya ishlatiladi:
+    </p>
+    <pre><code class="language-css">:root {
+  --primary-color: #7c4dff;
+}
+
+[data-theme="light"] {
+  --primary-color: #6366f1;
+}
+
+.button {
+  background: var(--primary-color);
+  transition: background 0.3s ease;
+}</code></pre>
+
+    <!-- Quiz 2 -->
+    <div class="quiz-card" id="quiz-2">
+      <div class="quiz-badge">Bilimni Tekshirish • 3-bob</div>
+      <div class="quiz-question">CSS da <code>display: grid</code> ishlatilganda, ekran o'lchami o'zgarganda ustunlar avtomatik moslashib sig'may qolganda keyingi qatorga tushishi uchun qaysi ifoda qo'llaniladi?</div>
+      <div class="quiz-options">
+        <div class="quiz-option" onclick="checkQuiz(2, this, false)">A) grid-template-columns: 1fr 1fr 1fr;</div>
+        <div class="quiz-option" onclick="checkQuiz(2, this, true)">B) grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));</div>
+        <div class="quiz-option" onclick="checkQuiz(2, this, false)">C) grid-auto-flow: column;</div>
+        <div class="quiz-option" onclick="checkQuiz(2, this, false)">D) display: flex; flex-wrap: nowrap;</div>
+      </div>
+      <div class="quiz-feedback" id="quiz-feedback-2"></div>
+    </div>
+
+    <hr>
+
+    <!-- ====================================================================
+         4-BOB: CSS ARXITEKTURASI VA TAILWIND CSS
+         ==================================================================== -->
+    <h1 id="4-bob-tailwind-va-modern-animatsiyalar">4-bob: CSS Arxitekturasi, Modern Animatsiyalar va Tailwind CSS</h1>
+
+    <h2 id="bem-va-css-modullari">BEM va CSS Modullari</h2>
+    <p>
+      Loyihalar kattalashganda global CSS fayllar boshqarib bo'lmas darajaga yetadi. Buning oldini olish uchun ikkita asosiy metodologiya bor:
+    </p>
+    <ul>
+      <li><strong>BEM (Block Element Modifier):</strong> <code>.card__title--featured</code> shaklidagi qat'iy nomlash standarti orqali stil to'qnashuvlarining oldini oladi.</li>
+      <li><strong>CSS Modules:</strong> Faylni <code>Button.module.css</code> deb nomlash orqali kompilyator sinf nomlarini avtomatik ravishda noyob xeshga aylantiradi (masalan, <code>Button_btn__1x9fa</code>).</li>
+    </ul>
+
+    <h2 id="tailwind-mentaliteti">Tailwind CSS nima uchun sanoat standarti?</h2>
+    <p>
+      Tailwind CSS — bu Utility-first CSS framework. Ko'pchilik uni boshida "oddiy inline stillar-ku" deb noto'g'ri baholaydi. Lekin Tailwind ning kuchi quyidagilarda:
+    </p>
+    <ol>
+      <li><strong>Cheklangan dizayn tizimi (Design System Tokens):</strong> Dasturchi o'zicha <code>margin: 17px</code> yoki <code>color: #7d33aa</code> yozmaydi, balki oldindan sozlangan o'lcham va ranglar palitrasidan (<code>m-4</code>, <code>bg-indigo-600</code>) foydalanadi.</li>
+      <li><strong>Zero CSS Bloat (PurgeCSS / JIT):</strong> Loyihada 10 000 ta sahifa bo'lsa ham, yakuniy CSS fayl hajmi ko'pi bilan 15-20 KB dan oshmaydi, chunki faqat HTML da ishlatilgan utilitlar yakuniy faylga tushadi.</li>
+      <li><strong>Kontekst almashish yo'qligi:</strong> HTML va CSS fayllar o'rtasida borib-kelishga hojat qolmaydi.</li>
+    </ol>
+
+    <pre><code class="language-html">&lt;!-- Astra Academy Tailwind Card namunasi --&gt;
+&lt;div class="max-w-md mx-auto bg-slate-900/80 backdrop-blur-md rounded-2xl p-6 border border-slate-800 shadow-xl hover:border-indigo-500/50 transition-all duration-300 group"&gt;
+  &lt;div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-500 to-cyan-400 flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform"&gt;
+    🚀
+  &lt;/div&gt;
+  &lt;h3 class="text-lg font-bold text-white mb-2"&gt;Frontend Muhandisligi&lt;/h3&gt;
+  &lt;p class="text-sm text-slate-400 leading-relaxed"&gt;
+    Zamonaviy ekotizim, optimal arxitektura va yuqori tezlikdagi dasturlar yaratishni o'rganing.
+  &lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+    <h2 id="60fps-animatsiyalar-gpu-acceleration">60 FPS animatsiyalar va GPU acceleration</h2>
+    <p>
+      Brauzer monitoriga har bir soniyada 60 ta kadr chizilishi kerak. Bu degani, brauzerda bitta kadrni hisoblab ekranga chiqarish uchun atigi <strong>16.6 millisoniya (ms)</strong> vaqt bor!
+    </p>
+    <p>
+      Agar animatsiyada <code>left</code> yoki <code>margin-top</code> ishlatilsa, har bir 16 ms da CPU Reflow hisoblaydi va natijada kadrlar tushib qoladi (jank/stutter). To'g'ri yo'l:
+    </p>
+    <pre><code class="language-css">/* NOTO'G'RI (Lag qiladi) */
+.box:hover {
+  left: 200px;
+}
+
+/* ASTRA STANDARTI (60/120 FPS moydek silliq) */
+.box {
+  will-change: transform; /* Brauzerga buni alohida GPU qatlamiga olishni buyuradi */
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.box:hover {
+  transform: translateX(200px);
+}</code></pre>
+
+    <h2 id="css-container-queries">CSS Container Queries — Yangi davr</h2>
+    <p>
+      Avvallari responsive dizayn faqat butun ekran o'lchamiga (<code>@media (max-width: 768px)</code>) qarab moslashar edi. Lekin agar sizning komponentingiz tor sidebar ichida tursa-chi?
+      <strong>Container Queries</strong> komponentning aynan o'zi joylashgan ota-konteynerining o'lchamiga qarab shaklini o'zgartirish imkonini beradi:
+    </p>
+    <pre><code class="language-css">.card-container {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .card {
+    display: flex;
+    flex-direction: row;
+  }
+}</code></pre>
+
+    <hr>
+
+    <!-- ====================================================================
+         5-BOB: JAVASCRIPT CORE: V8 VA CLOSURES
+         ==================================================================== -->
+    <h1 id="5-bob-javascript-core-v8">5-bob: JavaScript Core: Dvigatel Ichiga Sayohat</h1>
+
+    <h2 id="v8-dvigateli-va-just-in-time">V8 dvigateli va JIT kompilyatsiya</h2>
+    <p>
+      Google Chrome va Node.js da ishlaydigan <strong>V8 dvigateli</strong> JavaScript kodini qanday ijro etadi?
+    </p>
+    <ol>
+      <li><strong>Parser:</strong> Kodni o'qiydi va uni <strong>AST (Abstract Syntax Tree)</strong> ga aylantiradi.</li>
+      <li><strong>Ignition (Interpreter):</strong> AST dan tezda bayt-kod (Bytecode) hosil qilib, kodni darhol yurgizib yuboradi.</li>
+      <li><strong>TurboFan (Optimizing Compiler):</strong> Agar biror funksiya tez-tez chaqirilsa (Hot code), TurboFan uning qabul qilayotgan tiplarini kuzatadi va to'g'ridan-to'g'ri o'ta tezkor Mashina Kodiga (Machine Code) o'tkazadi. Agar tip to'satdan o'zgarib qolsa (masalan har doim son kelayotgan funksiyaga satr kelsa), dvigatel uni "Deoptimize" qiladi va sekinroq bayt-kodga qaytaradi. Shu sababli TypeScript yozish V8 dvigateliga ham kodni optimallashtirishda katta yordam beradi!</li>
+    </ol>
+
+    <h2 id="execution-context-va-call-stack">Execution Context va Call Stack</h2>
+    <p>
+      JavaScript kod ishga tushganda har doim <strong>Global Execution Context</strong> yaratiladi. Har safar yangi funksiya chaqirilganda, Call Stack ustiga yangi <strong>Function Execution Context</strong> qo'yiladi.
+    </p>
+    <p>
+      Execution Context ikki fazada ishlaydi:
+    </p>
+    <ul>
+      <li><strong>1. Creation Phase (Xotira ajratish fazasi):</strong> O'zgaruvchilar va funksiyalar skanerdan o'tkazilib, xotirada joy ajratiladi (Hoisting sababi!). <code>var</code> larga <code>undefined</code> yoziladi, <code>let</code> va <code>const</code> esa e'lon qilinmagan xolatda (TDZ) qoladi.</li>
+      <li><strong>2. Execution Phase (Bajarilish fazasi):</strong> Kod qatorma-qator o'qilib, qiymatlar o'zlashtiriladi va hisob-kitoblar bajariladi.</li>
+    </ul>
+
+    <h2 id="scope-chain-va-closures">Scope Chain va Closures (Chuqur)</h2>
+    <p>
+      <strong>Closure (Yopilish)</strong> — bu ichki funksiyaning o'zi yaratilgan tashqi muhitidagi (Lexical Scope) o'zgaruvchilarni, hatto tashqi funksiya o'z ishini tugatib, Call Stack dan o'chib ketganidan keyin ham eslab qolish qobiliyatidir.
+    </p>
+    <pre><code class="language-javascript">// Astra Academy Amaliy Closure Namunasi: Memoization Kesh
+function createCachedFetcher() {
+  const cache = new Map(); // Bu xotira tashqi dunyodan himoyalangan (Private)
+
+  return async function(url) {
+    if (cache.has(url)) {
+      console.log("⚡ Keshdan olindi:", url);
+      return cache.get(url);
+    }
+    console.log("🌐 Serverdan yuklanmoqda:", url);
+    const response = await fetch(url);
+    const data = await response.json();
+    cache.set(url, data);
+    return data;
+  };
+}
+
+const getAstraCourse = createCachedFetcher();
+// Birinchi marta: tarmoq orqali yuklanadi
+// Ikkinchi marta: closure ichidagi keshdan bir lahzada qaytadi!</code></pre>
+
+    <h2 id="hoisting-va-temporal-dead-zone">Hoisting va TDZ (Temporal Dead Zone)</h2>
+    <p>
+      Quyidagi misol nima uchun xato beradi?
+    </p>
+    <pre><code class="language-javascript">console.log(a); // undefined chiqaradi (chunki var hoisted bo'lib, undefined olgan)
+console.log(b); // ReferenceError: Cannot access 'b' before initialization!
+
+var a = 10;
+let b = 20; // let va const TDZ (Temporal Dead Zone) da bo'ladi</code></pre>
+
+    <hr>
+
+    <!-- ====================================================================
+         6-BOB: EVENT LOOP VA ASINXRON JAVASCRIPT
+         ==================================================================== -->
+    <h1 id="6-bob-asinxron-js-va-event-loop">6-bob: Asinxron JavaScript va Event Loop</h1>
+
+    <h2 id="event-loop-microtasks-vs-macrotasks">Event Loop: Microtasks vs Macrotasks</h2>
+    <p>
+      JavaScript — bir oqimli (Single-threaded) til. Unda bitta Call Stack bor. Qanday qilib u minglab tarmoq so'rovlarini qotib qolmasdan (Non-blocking) bajara oladi? Javob: <strong>Event Loop</strong>!
+    </p>
+    <div class="diagram-box">
++--------------------+        +---------------------+
+|     CALL STACK     |        |      WEB APIs       |
+| (Funksiyalar ijro  | -----> | (setTimeout, fetch, |
+|  etiladigan joy)   |        |  DOM Events...)     |
++--------------------+        +---------------------+
+          ^                              |
+          |                              v
++---------------------------------------------------+
+|                   EVENT LOOP                      |
++---------------------------------------------------+
+          |                              |
+          v                              v
++--------------------+        +---------------------+
+|  MICROTASK QUEUE   |        |   MACROTASK QUEUE   |
+| (Promise .then/    |        | (setTimeout,        |
+|  queueMicrotask)   |        |  setInterval, I/O)  |
+| *HAR DOIM BIRINCHI!|        | *Microtask tugagach |
++--------------------+        +---------------------+
+    </div>
+
+    <div class="callout callout-warning">
+      <div class="callout-title">⚠️ Intervyu Savoli: Natijani toping!</div>
+      <pre><code class="language-javascript">console.log('1');
+
+setTimeout(() => {
+  console.log('2');
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log('3');
+});
+
+console.log('4');</code></pre>
+      <p>
+        <strong>Javob:</strong> <code>1, 4, 3, 2</code>. Sababi: 1 va 4 darhol Call Stack da bajariladi. <code>Promise</code> Microtask navbatiga tushadi. <code>setTimeout</code> esa Macrotask navbatiga tushadi. Event Loop har bir qadamda Microtask navbatini to'liq bo'shatib olmaguncha, Macrotask ga aslo o'tmaydi!
+      </p>
+    </div>
+
+    <h2 id="promises-va-async-await-chuqur">Promises va async/await ichki mexanizmi</h2>
+    <p>
+      <code>async/await</code> bu shunchaki Promise lar ustiga qurilgan qulay sintaksis (Syntactic Sugar). Dvigatel ichida u Generatorlar va <code>yield</code> mexanizmiga o'xshash ishlaydi: har safar <code>await</code> uchrashganda funksiya ijrosi to'xtatiladi va promise yechilgach yana davom ettiriladi.
+    </p>
+
+        <h2 id="error-handling-va-retry-pattern">Xatolarni boshqarish va Retry Pattern</h2>
+    <p>
+      Haqiqiy dunyoda internet tez-tez uzilib turadi, mobil tarmoqda paketlar yo'qoladi yoki server 503 Service Unavailable beradi. Professional frontend tizim foydalanuvchiga darhol "Xatolik yuz berdi" deb xafa qilmasdan, avtomatik ravishda oraliq tanaffuslar bilan qayta urinishi (Exponential Backoff Retry) kerak:
+    </p>
+    <pre><code class="language-javascript">// Astra Academy Production Retry Pattern
+async function fetchWithRetry(url, options = {}, retries = 3, backoffMs = 1000) {
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      // 4xx mijoz xatolarida (masalan 401, 404) qayta so'rash mantiqsiz
+      if (response.status >= 400 && response.status < 500) {
+        throw new Error(`Client Error: ${response.status}`);
+      }
+      throw new Error(`Server Error: ${response.status}`);
+    }
+    return await response.json();
+  } catch (err) {
+    if (retries > 0) {
+      console.warn(`Tarmoq xatosi. ${backoffMs}ms dan so'ng qayta urinilmoqda... Qoldi: ${retries}`);
+      await new Promise(resolve => setTimeout(resolve, backoffMs));
+      return fetchWithRetry(url, options, retries - 1, backoffMs * 2); // 1s, 2s, 4s...
+    }
+    throw err;
+  }
+}</code></pre>
+
+<h2 id="abortcontroller-bilan-requestlarni-bekor-qilish">AbortController bilan so'rovlarni bekor qilish</h2>
+    <p>
+      Foydalanuvchi qidiruv maydoniga har bir harf kiritganda eski so'rovlarni bekor qilish kerak (Race condition larning oldini olish uchun):
+    </p>
+    <pre><code class="language-javascript">let currentController = null;
+
+async function searchCourses(query) {
+  // Agar avvalgi so'rov hali tugamagan bo'lsa, uni tarmoq darajasida bekor qilamiz!
+  if (currentController) {
+    currentController.abort();
+  }
+
+  currentController = new AbortController();
+
+  try {
+    const res = await fetch(`/api/search?q=${query}`, {
+      signal: currentController.signal
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      console.log('Eski so\'rov muvaffaqiyatli bekor qilindi');
+    } else {
+      console.error('Tarmoq xatosi:', err);
+    }
+  }
+}</code></pre>
+
+    <hr>
+
+    <!-- ====================================================================
+         7-BOB: MODERN DOM MANIPULYATSIYASI VA WEB APIS
+         ==================================================================== -->
+    <h1 id="7-bob-dom-va-web-apis">7-bob: Modern DOM Manipulyatsiyasi va Web APIs</h1>
+
+    <h2 id="dom-operatsiyalarini-tezlashtirish">DOM operatsiyalarini optimallashtirish</h2>
+    <p>
+      JavaScript orqali DOM ga to'g'ridan-to'g'ri element qo'shish qimmat turadi. Agar siz for siklida 1000 ta <code>document.body.appendChild()</code> qilsangiz, sahifa 1000 marta reflow bo'lishi mumkin.
+    </p>
+    <p>
+      Buning o'rniga <strong>DocumentFragment</strong> ishlatiladi — bu virtual konteyner bo'lib, unga hamma elementlar yig'iladi va birgina operatsiyada DOM ga ko'chiriladi:
+    </p>
+    <pre><code class="language-javascript">const fragment = document.createDocumentFragment();
+
+students.forEach(student => {
+  const li = document.createElement('li');
+  li.textContent = student.name;
+  fragment.appendChild(li);
+});
+
+// Faqat BIR marta haqiqiy DOM ga chiziladi!
+document.getElementById('student-list').appendChild(fragment);</code></pre>
+
+    <h2 id="intersection-observer-api">IntersectionObserver: Cheksiz scroll va lazy-loading</h2>
+    <p>
+      Qadimda rasm ko'rinish maydoniga kirganini bilish uchun <code>window.addEventListener('scroll')</code> ichida <code>getBoundingClientRect()</code> chaqirilardi. Bu har bir scroll da brauzerning asosiy oqimini qotirib qo'yar edi.
+    </p>
+    <p>
+      <strong>IntersectionObserver</strong> esa to'liq asinxron ravishda, alohida oqimda elementning ekranda paydo bo'lganini kuzatib turadi:
+    </p>
+    <pre><code class="language-javascript">const observer = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      img.src = img.dataset.src; // Haqiqiy rasmni yuklaymiz
+      obs.unobserve(img);        // Kuzatishni to'xtatamiz
+    }
+  });
+}, { rootMargin: '150px' }); // Ekranga 150px yetmasdan oldinroq yuklaydi!
+
+document.querySelectorAll('img[data-src]').forEach(img => observer.observe(img));</code></pre>
+
+        <h2 id="resize-observer-va-mutation-observer">ResizeObserver va MutationObserver</h2>
+    <p>
+      Element o'lchami o'zgarganda (masalan foydalanuvchi matn maydonini tortganda yoki ekranni yarmiga bo'lganda) qayta hisoblash uchun <code>ResizeObserver</code> ishlatiladi.
+    </p>
+    <pre><code class="language-javascript">const resizeObserver = new ResizeObserver(entries => {
+  for (let entry of entries) {
+    const { width, height } = entry.contentRect;
+    console.log(`Element yangi o'lchami: ${width}x${height}`);
+  }
+});
+resizeObserver.observe(document.querySelector('.dashboard-widget'));</code></pre>
+    <p>
+      <strong>MutationObserver</strong> esa DOM daraxtidagi o'zgarishlarni — masalan, yangi element qo'shilishi yoki <code>data-theme="dark"</code> atributi o'zgarishini bildirish uchun xizmat qiladi.
+    </p>
+
+    <h2 id="web-storage-indexeddb-va-cache">Web Storage, IndexedDB va Cache API</h2>
+    <p>
+      Brauzer xotirasi imkoniyatlarini to'g'ri tanlash kerak:
+    </p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Xotira Turi</th>
+            <th>Hajmi</th>
+            <th>Ma'lumot turi</th>
+            <th>Sinxron/Asinxron</th>
+            <th>Qo'llanilishi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>localStorage</code></td>
+            <td>~5 MB</td>
+            <td>Faqat matn (String)</td>
+            <td>Sinxron (UI ni bloklashi mumkin)</td>
+            <td>Mavzu (Dark/Light), qisqa parametrlar</td>
+          </tr>
+          <tr>
+            <td><code>sessionStorage</code></td>
+            <td>~5 MB</td>
+            <td>Faqat matn (String)</td>
+            <td>Sinxron</td>
+            <td>Bir martalik wizard form ma'lumotlari</td>
+          </tr>
+          <tr>
+            <td><code>IndexedDB</code></td>
+            <td>Gigabaytlar (Disk hajmiga qarab)</td>
+            <td>JSON, Fayllar, Blob lar</td>
+            <td>To'liq asinxron (Tranzaksiyalar bilan)</td>
+            <td>Oflayn kitoblar, audio/video kesh, CRM bazasi</td>
+          </tr>
+          <tr>
+            <td><code>Cache API</code></td>
+            <td>Katta hajm</td>
+            <td>HTTP Request / Response juftliklari</td>
+            <td>Asinxron (Service Worker)</td>
+            <td>PWA ilovalarning oflayn ishlashi</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+<hr>
+
+    <!-- ====================================================================
+         8-BOB: TYPESCRIPT MASTERY
+         ==================================================================== -->
+    <h1 id="8-bob-typescript-mastery">8-bob: TypeScript: Xavfsiz va Ishonchli Frontend</h1>
+
+    <h2 id="nega-faqat-javascript-yetarli-emas">Nega productionda faqat JS yetarli emas?</h2>
+    <p>
+      Dunyodagi eng mashhur xato: <code>Uncaught TypeError: Cannot read properties of undefined (reading 'id')</code>.
+      JavaScript dinamik tiplangan til bo'lgani uchun barcha xatolar dasturni foydalanuvchi ishlatayotgan vaqtda (Runtime) yuzaga chiqadi. TypeScript esa ularni hali siz kodni saqlashga ulgurmasdan turib (Compile-time) ko'rsatib beradi.
+    </p>
+
+    <h2 id="generics-qudrati">Generics qudrati</h2>
+    <p>
+      Generics — bu funksiya yoki interfeyslarga tiplarni xuddi argument kabi uzatish imkoniyatidir:
+    </p>
+    <pre><code class="language-typescript">interface ApiResponse&lt;T&gt; {
+  data: T;
+  status: number;
+  message: string;
+}
+
+interface User {
+  id: string;
+  name: string;
+  role: 'admin' | 'student';
+}
+
+async function apiFetch&lt;T&gt;(endpoint: string): Promise&lt;ApiResponse&lt;T&gt;&gt; {
+  const res = await fetch(endpoint);
+  return res.json();
+}
+
+// Foydalanish: data maydoni User tipida ekanligi 100% kafolatlangan!
+const response = await apiFetch&lt;User&gt;('/api/me');
+console.log(response.data.name);</code></pre>
+
+    <h2 id="utility-types-partial-pick-omit-record">Utility Types: Partial, Pick, Omit, Record</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Utility Type</th>
+            <th>Vazifasi</th>
+            <th>Misol</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>Partial&lt;T&gt;</code></td>
+            <td>Barcha maydonlarni ixtiyoriy (optional) qiladi</td>
+            <td><code>function update(user: Partial&lt;User&gt;)</code></td>
+          </tr>
+          <tr>
+            <td><code>Pick&lt;T, K&gt;</code></td>
+            <td>Faqat tanlangan kalitlarni oladi</td>
+            <td><code>type UserPreview = Pick&lt;User, 'id' | 'name'&gt;</code></td>
+          </tr>
+          <tr>
+            <td><code>Omit&lt;T, K&gt;</code></td>
+            <td>Ko'rsatilgan kalitlarni chiqarib tashlaydi</td>
+            <td><code>type CreateUserDto = Omit&lt;User, 'id'&gt;</code></td>
+          </tr>
+          <tr>
+            <td><code>Record&lt;K, V&gt;</code></td>
+            <td>Kalit va qiymat juftligidan lug'at yaratadi</td>
+            <td><code>Record&lt;string, number&gt;</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="discriminated-unions-va-narrowing">Discriminated Unions va Type Narrowing</h2>
+    <p>
+      Frontendda holatlarni boshqarishda eng ishonchli pattern:
+    </p>
+    <pre><code class="language-typescript">type AsyncState&lt;T&gt; = 
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'success'; data: T }
+  | { status: 'error'; error: string };
+
+function renderUI(state: AsyncState&lt;string[]&gt;) {
+  switch (state.status) {
+    case 'loading':
+      return '&lt;p&gt;Yuklanmoqda...&lt;/p&gt;';
+    case 'error':
+      return `&lt;p&gt;Xatolik: ${state.error}&lt;/p&gt;`; // TypeScript biladi: error bor!
+    case 'success':
+      return `&lt;ul&gt;${state.data.map(item => `&lt;li&gt;${item}&lt;/li&gt;`).join('')}&lt;/ul&gt;`;
+  }
+}</code></pre>
+
+    <hr>
+
+    <!-- ====================================================================
+         9-BOB: REACT.JS CHUQUR: RECONCILIATION VA FIBER
+         ==================================================================== -->
+    <h1 id="9-bob-react-fiber-arxitekturasi">9-bob: React.js Chuqur: Reconciliation va Fiber Arxitekturasi</h1>
+
+    <h2 id="virtual-dom-va-reconciliation">Virtual DOM va Diffing algoritmi</h2>
+    <p>
+      React nima uchun tez ishlaydi? Chunki u to'g'ridan-to'g'ri og'ir brauzer DOM ini o'zgartirmaydi, balki xotirada yengil JavaScript ob'ektlari daraxtini (Virtual DOM) saqlaydi.
+    </p>
+    <p>
+      Holat (state) o'zgarganda yangi Virtual DOM yaratiladi va eski Virtual DOM bilan taqqoslanadi. Bu jarayon <strong>Reconciliation</strong> deyiladi. O'zgarishlarni topish uchun React <code>O(n)</code> murakkablikdagi Heuristic Diffing algoritmidan foydalanadi:
+    </p>
+    <ul>
+      <li>Har xil turdagi ikkita element har xil daraxt hosil qiladi (eski daraxt to'liq o'chirilib, yangisi quriladi).</li>
+      <li>Elementlar ro'yxatida har bir elementga noyob va o'zgarmas <code>key</code> berilishi shart. Aks holda React qaysi element o'zgarganini bilolmay butun ro'yxatni qayta chizadi!</li>
+    </ul>
+
+    <h2 id="react-fiber-daraxti-va-scheduller">React Fiber: To'xtatib bo'ladigan render</h2>
+    <p>
+      React 15 da render jarayoni sinxron (Stack Reconciler) edi. Agar sahifada 5000 ta komponent bo'lsa, React ularni yangilab bo'lmaguncha foydalanuvchi klaviaturada birorta harf ham yoza olmas edi.
+    </p>
+    <p>
+      React 16 da yaratilgan <strong>Fiber arxitekturasi</strong> bu ishni butunlay o'zgartirdi:
+    </p>
+    <ul>
+      <li>Endi render jarayoni kichik bo'laklarga (Fibers) bo'linadi.</li>
+      <li>React har bir bo'lakni bajarayotganda <code>requestIdleCallback</code> yordamida brauzerda boshqa muhim ish bormi-yo'qligini tekshiradi.</li>
+      <li>Agar foydalanuvchi tugmani bossa (User input yuqori prioritetga ega!), React joriy renderlashni to'xtatib turadi, foydalanuvchiga javob beradi va so'ngra to'xtagan joyidan davom ettiradi!</li>
+    </ul>
+
+        <h2 id="jsx-qanday-kompilyatsiya-boladi">JSX qanday kompilyatsiya bo'ladi?</h2>
+    <p>
+      Brauzerlar tabiiy ravishda JSX ni tushunmaydi. Siz yozgan JSX sintaksisi build vaqtida Babel, SWC yoki ESBuild tomonidan oddiy JavaScript funksiya chaqiruvlariga aylantiriladi:
+    </p>
+    <pre><code class="language-jsx">// Siz yozgan JSX:
+const button = &lt;button className="btn-primary" onClick={handleClick}&gt;Kirish&lt;/button&gt;;
+
+// Zamonaviy React 17+ JSX Transform natijasi:
+import { jsx as _jsx } from "react/jsx-runtime";
+const button = _jsx("button", {
+  className: "btn-primary",
+  onClick: handleClick,
+  children: "Kirish"
+});</code></pre>
+    <p>
+      Natijada hosil bo'lgan ob'ekt shunchaki <code>type: 'button'</code>, <code>props</code> va <code>children</code> ga ega bo'lgan oddiy JavaScript ob'ektidir (Virtual DOM node). Shu sababli React 17 dan boshlab fayllar boshiga <code>import React from 'react'</code> yozish shart emas!
+    </p>
+
+<h2 id="re-render-sabablari-va-profiling">Ortiqcha re-render sabablari va profiling</h2>
+    <p>
+      React komponenti qachon qayta chiziladi (Re-render bo'ladi)?
+    </p>
+    <ol>
+      <li>Komponentning o'zining <code>state</code> i o'zgarganda.</li>
+      <li>Komponentga kelayotgan <code>props</code> o'zgarganda.</li>
+      <li><strong>Ona komponent qayta chizilganda — uning barcha bola komponentlari ham avtomatik qayta chiziladi!</strong> (Hatto ularning propslari o'zgarmagan bo'lsa ham!).</li>
+    </ol>
+    <p>
+      Katta loyihalarda bu muammoni hal qilish uchun <code>React.memo</code>, <code>useMemo</code> va <code>useCallback</code> to'g'ri qo'llanilishi kerak.
+    </p>
+
+    <hr>
+
+    <!-- ====================================================================
+         10-BOB: REACT HOOKS CHUQUR TAHLIL
+         ==================================================================== -->
+    <h1 id="10-bob-react-hooks-chuqur">10-bob: React Hooks Chuqur: useState dan Custom Hooklargacha</h1>
+
+    <h2 id="useeffect-ning-yashirin-tuzoqlari">useEffect ning yashirin tuzoqlari</h2>
+    <p>
+      <code>useEffect</code> bu "Lifecycle methods (componentDidMount)" emas! Uning asl mohiyati — <strong>React tizimini tashqi dunyo bilan sinxronlashtirishdir</strong> (Network, DOM eventlari, WebSocket).
+    </p>
+    <pre><code class="language-jsx">// XAVFLI TUZOQ: Cheksiz re-render sikli
+useEffect(() => {
+  const options = { filter: 'active' }; // Har safar yangi ob'ekt xotirada yaratiladi!
+  fetchData(options);
+}, [options]); // Dependensidagi ob'ekt har safar boshqa havola (reference) bo'lgani uchun cheksiz sikl!
+
+// TO'G'RI YECHIM:
+useEffect(() => {
+  let isMounted = true;
+  fetchData('active').then(data => {
+    if (isMounted) setData(data);
+  });
+
+  // Cleanup function: memory leak larni oldini oladi!
+  return () => {
+    isMounted = false;
+  };
+}, []);</code></pre>
+
+    <h2 id="usememo-va-usecallback-qachon-kerak">useMemo va useCallback: Qachon kerak va qachon ziyon?</h2>
+    <p>
+      Ko'p dasturchilar barcha funksiyalarni <code>useCallback</code>, barcha hisob-kitoblarni <code>useMemo</code> ga o'rab tashlashadi. Bu esa teskari samara beradi — chunki xotira ajratish va dependensilarni taqqoslashning o'zi ham resurs talab qiladi.
+    </p>
+    <p>
+      Ularni faqat 2 holatda ishlating:
+    </p>
+    <ul>
+      <li>Hisob-kitob rostdan ham juda og'ir bo'lsa (masalan 100 000 ta qatorni filtrlash yoki saralash).</li>
+      <li>Funksiya yoki ob'ekt <code>React.memo</code> bilan himoyalangan bola komponentga props sifatida uzatilayotgan bo'lsa.</li>
+    </ul>
+
+        <h2 id="useref-va-forwardref">useRef va forwardRef sirlari</h2>
+    <p>
+      <code>useRef</code> ning asosiy xususiyati — uning qiymati (<code>.current</code>) o'zgarganda komponent qayta chizilmaydi (Re-render bo'lmaydi). Bu uni renderga ta'sir qilmaydigan qiymatlarni (taymer ID, scroll pozitsiyasi, eski qiymatlar) saqlash uchun ideal qiladi.
+    </p>
+    <pre><code class="language-jsx">// forwardRef bilan bola komponentning DOM elementiga kirish
+import React, { forwardRef, useRef } from 'react';
+
+const AstraInput = forwardRef((props, ref) => {
+  return &lt;input ref={ref} className="astra-custom-input" {...props} /&gt;;
+});
+
+// Ota komponent:
+function SearchPage() {
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current?.focus(); // Bola inputga to'g'ridan-to'g'ri fokus beramiz
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;AstraInput ref={inputRef} placeholder="Qidiruv..." /&gt;
+      &lt;button onClick={focusInput}&gt;Fokuslash&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+<h2 id="professional-custom-hooklar-yaratish">Professional Custom Hooklar yaratish</h2>
+    <p>
+      Biznes mantiqni UI komponentidan ajratishning eng toza yo'li — Custom Hook:
+    </p>
+    <pre><code class="language-typescript">// Astra Academy useDebounce Hooki
+import { useState, useEffect } from 'react';
+
+export function useDebounce&lt;T&gt;(value: T, delayMs: number = 400): T {
+  const [debouncedValue, setDebouncedValue] = useState&lt;T&gt;(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delayMs);
+
+    return () => clearTimeout(timer);
+  }, [value, delayMs]);
+
+  return debouncedValue;
+}</code></pre>
+
+    <hr>
+
+    <!-- ====================================================================
+         11-BOB: STATE MANAGEMENT: ZUSTAND VA TANSTACK QUERY
+         ==================================================================== -->
+    <h1 id="11-bob-state-management-zustand-tanstack">11-bob: Global State Management: Zustand & TanStack Query</h1>
+
+    <h2 id="client-vs-server-state-fundamental-farq">Client State vs Server State</h2>
+    <p>
+      Zamonaviy frontend arxitekturasining eng katta inqilobi — bu <strong>State (holat) larni ikkiga ajratishdir</strong>:
+    </p>
+    <ul>
+      <li><strong>Client State:</strong> Faqat brauzerda mavjud bo'lgan, serverga aloqasi bo'lmagan UI holatlari: modal ochiqmi, qaysi tab faol, dark theme yoqilganmi. Bunga <strong>Zustand</strong> eng yaxshi yechimdir.</li>
+      <li><strong>Server State:</strong> Aslida server ma'lumotlar bazasida yotgan, biz faqat keshlab olib turgan ma'lumotlar: foydalanuvchilar ro'yxati, kurslar, profillar. Bunga <strong>TanStack Query (React Query)</strong> kerak!</li>
+    </ul>
+
+    <h2 id="zustand-yengil-va-tezkor-global-state">Zustand: Boilerplate'siz global state</h2>
+    <p>
+      Redux dagi kabi reducers, dispatchers, action types kerak emas. Zustand nihoyatda ixcham va tez ishlaydi:
+    </p>
+    <pre><code class="language-typescript">import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+interface AstraStore {
+  bookmarks: string[];
+  addBookmark: (id: string) => void;
+  removeBookmark: (id: string) => void;
+}
+
+export const useAstraStore = create&lt;AstraStore&gt;()(
+  persist(
+    (set) => ({
+      bookmarks: [],
+      addBookmark: (id) => set((state) => ({ bookmarks: [...state.bookmarks, id] })),
+      removeBookmark: (id) => set((state) => ({ 
+        bookmarks: state.bookmarks.filter(b => b !== id) 
+      })),
+    }),
+    { name: 'astra-storage' } // Avtomatik localStorage ga saqlaydi!
+  )
+);</code></pre>
+
+    <h2 id="tanstack-query-keshlash-va-optimistic-updates">TanStack Query: Kesh, Stale-time va Optimistic Updates</h2>
+    <p>
+      TanStack Query tarmoqdan ma'lumotlarni tortish, keshlash, fonda yangilash (Background refetching on window focus) va yuklanish holatlarini avtomatik boshqaradi.
+    </p>
+
+        <h2 id="redux-toolkit-qachon-ishlatiladi">Redux Toolkit: Katta korporativ loyihalarda o'rni</h2>
+    <p>
+      Kichik va o'rta loyihalarda Zustand yetarli bo'lsa-da, katta bank yoki sug'urta kompaniyalarida (Enterprise) <strong>Redux Toolkit (RTK)</strong> talab etiladi. Buning sabablari:
+    </p>
+    <ul>
+      <li><strong>Qat'iy Arxitektura Qoidalari:</strong> Har bir o'zgarish faqatgina Action va Reducer orqali o'tishi shart, bu esa yuzlab dasturchilar ishlaydigan jamoalarda tartibni saqlaydi.</li>
+      <li><strong>Redux DevTools & Time-Travel Debugging:</strong> Dasturda bo'lgan har bir harakatni lentaga yozib olgandek orqaga va oldinga qaytarib ko'rish imkoniyati.</li>
+      <li><strong>RTK Query:</strong> Kesh va API so'rovlarni boshqarish uchun kuchli o'rnatilgan tizim.</li>
+    </ul>
+
+<hr>
+
+    <!-- ====================================================================
+         12-BOB: NEXT.JS VA REACT SERVER COMPONENTS
+         ==================================================================== -->
+    <h1 id="12-bob-nextjs-va-rsc">12-bob: Next.js va Server-Side Rendering (SSR, SSG, ISR, RSC)</h1>
+
+    <h2 id="csr-ssr-ssg-va-isr-taqqoslashi">CSR vs SSR vs SSG vs ISR taqqoslashi</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Rendering Usuli</th>
+            <th>Qachon yig'iladi?</th>
+            <th>SEO</th>
+            <th>Server yuki</th>
+            <th>Ideal loyihalar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CSR (Client-Side)</strong></td>
+            <td>Brauzerda runtime vaqtida</td>
+            <td>Past (bo'sh HTML boradi)</td>
+            <td>Zero (statik fayl)</td>
+            <td>Yopiq dashboardlar, admin panellar</td>
+          </tr>
+          <tr>
+            <td><strong>SSR (Server-Side)</strong></td>
+            <td>Har bir foydalanuvchi so'rovida serverda</td>
+            <td>A'lo</td>
+            <td>Yuqori</td>
+            <td>Shaxsiy yangiliklar lentalari, real-time e-commerce</td>
+          </tr>
+          <tr>
+            <td><strong>SSG (Static Site)</strong></td>
+            <td>Build vaqtida bir marta</td>
+            <td>Mukammal</td>
+            <td>Zero (CDN keshlaydi)</td>
+            <td>Bloglar, dokumentatsiyalar, Astra kitobi</td>
+          </tr>
+          <tr>
+            <td><strong>ISR (Incremental)</strong></td>
+            <td>Build vaqtida + ma'lum vaqt oralig'ida fonda</td>
+            <td>Mukammal</td>
+            <td>Juda past</td>
+            <td>Minglab sahifali katta do'konlar</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="react-server-components-rsc">React Server Components (RSC) nima va nima uchun kerak?</h2>
+    <p>
+      React 19 va Next.js App Router poydevori bo'lgan <strong>RSC</strong> komponentlarni to'g'ridan-to'g'ri serverda bajaradi. Ularning kodi brauzerga umuman YUKLANMAYDI (0 KB JavaScript bundle!).
+      Faqat foydalanuvchi bilan interaktiv aloqa kerak bo'lgandagina fayl tepasiga <code>"use client"</code> qo'yiladi.
+    </p>
+
+        <h2 id="nextjs-app-router-arxitekturasi">Next.js App Router arxitekturasi</h2>
+    <p>
+      Next.js 13+ da taqdim etilgan <code>app/</code> katalogi fayl tizimiga asoslangan marshrutlashni (File-system based routing) yangi bosqichga olib chiqdi:
+    </p>
+    <ul>
+      <li><code>layout.tsx</code> — Ichki sahifalar almashganda ham qayta chizilmaydigan umumiy qobiq (Sidebar, Navbar).</li>
+      <li><code>page.tsx</code> — URL manzilga mos keladigan noyob sahifa komponenti.</li>
+      <li><code>loading.tsx</code> — Sahifa yuklanayotganda avtomatik chiqadigan Skeleton ekran (React Suspense asosida).</li>
+      <li><code>error.tsx</code> — Sahifadagi xatolarni ushlab qoluvchi Error Boundary (Mijoz komponenti).</li>
+      <li><code>not-found.tsx</code> — 404 sahifasi.</li>
+    </ul>
+
+    <h2 id="server-actions-va-streaming-suspense">Server Actions va Streaming with Suspense</h2>
+    <p>
+      Server Actions yordamida frontendchilar alohida API endpoint (controller) yozmasdan to'g'ridan-to'g'ri forma ichida serverdagi ma'lumotlar bazasiga yozishlari mumkin:
+    </p>
+    <pre><code class="language-typescript">// app/courses/page.tsx
+export default function AddCourseForm() {
+  async function createCourse(formData: FormData) {
+    'use server'; // Bu funksiya FAQAT serverda bajariladi!
+    const title = formData.get('title');
+    await db.course.create({ data: { title } });
+    revalidatePath('/courses'); // Sahifani avtomatik keshdan yangilaydi
+  }
+
+  return (
+    &lt;form action={createCourse}&gt;
+      &lt;input name="title" placeholder="Kurs nomi" required /&gt;
+      &lt;button type="submit"&gt;Kurs yaratish&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}</code></pre>
+
+<hr>
+
+    <!-- ====================================================================
+         13-BOB: PERFORMANCE VA CORE WEB VITALS
+         ==================================================================== -->
+    <h1 id="13-bob-performance-core-web-vitals">13-bob: Web Performance & Core Web Vitals (LCP, INP, CLS)</h1>
+
+    <h2 id="core-web-vitals-lcp-inp-cls">Core Web Vitals: LCP, INP va CLS</h2>
+    <p>
+      Google saytlarni qidiruv natijalarida yuqoriga chiqarishda 3 ta o'lchovga qaraydi:
+    </p>
+    <ul>
+      <li><strong>LCP (Largest Contentful Paint) &lt; 2.5s:</strong> Sahifadagi eng katta blok (odatda asosiy rasm yoki h1 sarlavha) qanchalik tez ko'rindi?</li>
+      <li><strong>INP (Interaction to Next Paint) &lt; 200ms:</strong> Foydalanuvchi menyuni ochganda yoki tugmani bosganda brauzer qanchalik chaqqon javob berdi?</li>
+      <li><strong>CLS (Cumulative Layout Shift) &lt; 0.1:</strong> Sahifa yuklanayotganda rasmlar yoki reklamalar sababli matnlar sakrab-sakrab ketmasligi kerak. Buning uchun barcha rasmlarga <code>width</code> va <code>height</code> atributlari majburiy qo'yilishi shart!</li>
+    </ul>
+
+    <h2 id="bundle-hajmini-qisqartirish-va-tree-shaking">Bundle hajmini qisqartirish va Tree Shaking</h2>
+    <p>
+      Og'ir kutubxonalardan faqat kerakli qismlarini import qilish kerak. Masalan, butun <code>lodash</code> kutubxonasini (70 KB) yuklash o'rniga:
+    </p>
+    <pre><code class="language-javascript">// YOMON (Butun kutubxona tushadi)
+import _ from 'lodash';
+
+// TO'G'RI (Tree shaking ishlaydi, atigi 1 KB)
+import debounce from 'lodash/debounce';</code></pre>
+
+        <h2 id="rasmlar-va-shriftlar-optimallashtiruvi">Rasmlar (WebP/AVIF) va font optimallashtiruvi</h2>
+    <p>
+      Veb-sahifaning 70% dan ortiq vaznini rasmlar va shriftlar tashkil qiladi. Ularni optimallashtirish bo'yicha qoidalar:
+    </p>
+    <ul>
+      <li>Eski JPEG va PNG o'rniga 30-50% yengilroq bo'lgan <strong>WebP</strong> yoki <strong>AVIF</strong> formatlaridan foydalaning.</li>
+      <li>Shriftlarni faqat <code>woff2</code> formatida yuklang.</li>
+      <li>Shrift yuklanguncha matn ko'rinmasdan turmasligi (FOIT) uchun CSS da <code>font-display: swap;</code> xossasini doim kiriting.</li>
+      <li>Sahifaning eng yuqorisidagi LCP rasmni oldindan tayyorlash uchun: <code>&lt;link rel="preload" as="image" href="banner.webp"&gt;</code> tegi qo'yiladi.</li>
+    </ul>
+
+    <h2 id="lighthouse-100-ballik-strategiya">Lighthouse 100/100 qilish amaliyoti</h2>
+    <p>
+      Astra Academy standartida har bir loyiha Google Lighthouse da quyidagi ko'rsatkichlarga erishishi lozim:
+    </p>
+    <div class="diagram-box">
+[ Lighthouse 100/100 Tekshiruv Ro'yxati ]
+✓ 1. Barcha rasmlarga aniq width va height berilganmi? (CLS = 0)
+✓ 2. Skriptlar defer yoki async qilinganmi? (TBT < 100ms)
+✓ 3. Serverda Gzip yoki Brotli siqish yoqilganmi? (Hajm 4 barobar kamayadi)
+✓ 4. Ranglar kontrasti WCAG talablariga mos keladimi? (Accessibility 100)
+✓ 5. Barcha &lt;img&gt; larda to'g'ri 'alt' matnlari bormi? (SEO & a11y)
+    </div>
+
+<hr>
+
+    <!-- ====================================================================
+         14-BOB: TESTLASH: VITEST VA PLAYWRIGHT
+         ==================================================================== -->
+    <h1 id="14-bob-testlash-vitest-playwright">14-bob: Testlash va Kod Sifati (Vitest & Playwright)</h1>
+
+    <h2 id="test-piramidasi-unit-integration-e2e">Test piramidasi: Unit vs Integration vs E2E</h2>
+    <p>
+      Dasturni qo'lda har safar tekshirish — vaqtni o'g'irlaydi va insoniy xatolarga sabab bo'ladi. Ishonchli loyiha quyidagi testlarga ega bo'ladi:
+    </p>
+    <ul>
+      <li><strong>Unit testlar:</strong> Alohida funksiyalar va hisob-kitoblar (masalan valyuta konvertatsiyasi) ni alohida tekshirish. (Asbob: <strong>Vitest</strong>).</li>
+      <li><strong>Integration testlar:</strong> Komponentlarning birgalikda ishlashini tekshirish (masalan formaga ma'lumot kiritib "Yuborish" bosilganda xato chiqadimi). (Asbob: <strong>React Testing Library</strong>).</li>
+      <li><strong>E2E (End-to-End) testlar:</strong> Haqiqiy brauzer ochilib, foydalanuvchi kabi ro'yxatdan o'tish va to'lov qilish jarayonini to'liq avtomatik bosib o'tish. (Asbob: <strong>Playwright</strong>).</li>
+    </ul>
+
+        <h2 id="vitest-va-react-testing-library">Vitest va React Testing Library</h2>
+    <p>
+      <strong>Vitest</strong> — zamonaviy Vite ekotizimiga asoslangan, ESM ni to'g'ridan-to'g'ri qo'llab-quvvatlaydigan o'ta chaqqon test freymvorki. React Testing Library bilan birga u foydalanuvchi nigohi bilan test qilish imkonini beradi:
+    </p>
+    <pre><code class="language-typescript">// Button.test.tsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { Button } from './Button';
+
+describe('Astra Button Komponenti', () => {
+  it('bosilganda onClick hodisasini chaqirishi kerak', () => {
+    const handleClick = vi.fn();
+    render(&lt;Button onClick={handleClick}&gt;Boshlash&lt;/Button&gt;);
+
+    const btn = screen.getByRole('button', { name: /boshlash/i });
+    fireEvent.click(btn);
+
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+});</code></pre>
+
+    <h2 id="playwright-bilan-e2e-avtomatlashtirish">Playwright bilan ishonchli E2E testlar</h2>
+    <p>
+      Microsoft tomonidan yaratilgan <strong>Playwright</strong> brauzerlararo avtomatik sinov uchun eng qudratli vositadir:
+    </p>
+    <pre><code class="language-typescript">// tests/auth.spec.ts
+import { test, expect } from '@playwright/test';
+
+test('Foydalanuvchi muvaffaqiyatli tizimga kira oladi', async ({ page }) => {
+  await page.goto('https://astra-academy.uz/login');
+  await page.fill('input[name="email"]', 'talaba@astra.uz');
+  await page.fill('input[name="password"]', 'Parol123!');
+  await page.click('button[type="submit"]');
+
+  // Muvaffaqiyatli kirgach dashboard sarlavhasi chiqishini kutamiz
+  await expect(page.locator('h1')).toContainText('Mening Kurslarim');
+});</code></pre>
+
+    <h2 id="husky-lint-staged-va-ci-quvurlari">Husky, lint-staged va CI quvurlari</h2>
+    <p>
+      Jamoada kod yozganda xato yoki formatlanmagan kod GitHub ga ketib qolmasligi uchun Git Hooklar sozlanadi:
+    </p>
+    <ul>
+      <li><strong>Husky:</strong> <code>git commit</code> komandasi berilganda skriptlarni ishga tushiradi.</li>
+      <li><strong>lint-staged:</strong> Butun loyihani emas, faqat o'zgargan (staged) fayllarda Prettier va ESLint ni yurgizib xatolarni to'g'rilaydi.</li>
+    </ul>
+
+<hr>
+
+    <!-- ====================================================================
+         15-BOB: PRODUCTION, XAVFSIZLIK VA KARYERA
+         ==================================================================== -->
+    <h1 id="15-bob-production-va-karyera">15-bob: Production, Xavfsizlik va Karyera Yo'li</h1>
+
+    <h2 id="frontend-xavfsizligi-xss-csrf-csp">Frontend xavfsizligi: XSS, CSRF va CSP</h2>
+    <p>
+      Frontend dasturchi faqat dizayn emas, foydalanuvchi xavfsizligining birinchi qalqonidir:
+    </p>
+    <ul>
+      <li><strong>XSS (Cross-Site Scripting):</strong> Hujumchi foydalanuvchi izohlari orqali sahifaga zararli <code>&lt;script&gt;</code> kodini joylashtirishi. Hech qachon tekshirilmagan satrni <code>dangerouslySetInnerHTML</code> orqali ekranga chiqarmang!</li>
+      <li><strong>CSRF (Cross-Site Request Forgery):</strong> Autentifikatsiyada tokenlarni <code>localStorage</code> da emas, balki <strong>HttpOnly, Secure va SameSite=Strict</strong> bo'lgan Cookie larda saqlang. Shunda XSS sodir bo'lsa ham xaker tokenni o'g'irlay olmaydi!</li>
+      <li><strong>CSP (Content Security Policy):</strong> Brauzer qaysi domenlardan skript yoki rasm yuklay olishini qat'iy cheklovchi HTTP sarlavhasi.</li>
+    </ul>
+
+        <h2 id="docker-va-ci-cd-avtomatlashtirish">Docker va GitHub Actions CI/CD</h2>
+    <p>
+      Frontend loyihani barcha kutubxonalari bilan birgalikda yengil konteynerga o'rash uchun Multi-stage Dockerfile tuziladi:
+    </p>
+    <pre><code class="language-dockerfile"># 1-bosqich: Dependencies & Build
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# 2-bosqich: Production Nginx Server (Atigi 25 MB!)
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]</code></pre>
+
+    <h2 id="deploy-vercel-cloudflare-pages-va-vps">Deploy: Vercel, Cloudflare Pages va VPS</h2>
+    <p>
+      Zamonaviy deployment platformalarining afzalliklari:
+    </p>
+    <ul>
+      <li><strong>Vercel:</strong> Next.js loyihalar uchun eng tabiiy uy. Har bir Git Pull Request uchun avtomatik Preview URL yaratadi.</li>
+      <li><strong>Cloudflare Pages:</strong> Dunyo bo'ylab 300+ shaharlarda joylashgan bepul chekka (Edge) CDN tarmog'i orqali sahifalarni 10-20 ms da yuklaydi.</li>
+      <li><strong>VPS (Ubuntu + Nginx + PM2):</strong> Agar ma'lumotlar O'zbekiston ichida (tas-ix) turishi talab etilsa, Nginx teskari proksi (Reverse Proxy) orqali SSL sertifikatlar bilan sozlanadi.</li>
+    </ul>
+
+<h2 id="astra-academy-xulosasi-va-karyera">Astra Academy Karyera Maslahatlari va Portfolio</h2>
+    <div class="callout callout-tip">
+      <div class="callout-title">🚀 Astra Academy: Junior dan Senior gacha Oltin Qoidalar</div>
+      <p>
+        1. <strong>Faqat tutorial ko'rish tuzog'idan (Tutorial Hell) chiqing:</strong> O'rgangan bilimlaringiz asosida mustaqil loyihalar quring.<br>
+        2. <strong>Kod arxitekturasiga e'tibor bering:</strong> Ishlaydigan kod yozish oson, lekin 1 yildan keyin ham boshqalar tushunadigan toza kod yozish — mahorat talab qiladi.<br>
+        3. <strong>Open Source va Portfolio:</strong> GitHub profilingizda shunchaki to-do list emas, real muammolarni hal qiluvchi, testlari yozilgan, CI/CD sozlangan loyihalar bo'lsin.
+      </p>
+    </div>
+
+    <p style="text-align: center; margin-top: 50px; font-weight: 700; color: var(--accent-light);">
+      ⚡ Tabriklaymiz! Siz Astra Academy ning to'liq Frontend qo'llanmasini muvaffaqiyatli bosib o'tdingiz.
+    </p>
+
+  </div>
+</main>
+
+<!-- Resume Reading Toast -->
+<div id="resume-toast" onclick="resumeReading()">
+  📖 <strong>Oxirgi o'qilgan joy topildi!</strong> Davom ettirish uchun bosing.
+</div>
+
+<!-- ==========================================================================
+     CORE INTERACTIVE JAVASCRIPT
+     ========================================================================== -->
+<script>
+(function() {
+  "use strict";
+
+  const NUM_CHAPTERS = 15;
+  const STORAGE_PREFIX = "astra_frontend_guide_";
+
+  // ===== THEME MANAGEMENT =====
+  function getTheme() {
+    return localStorage.getItem(STORAGE_PREFIX + "theme") || "dark";
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    const btn = document.getElementById("theme-btn");
+    if (btn) {
+      btn.innerHTML = theme === "dark" ? "&#9789; Dark" : "&#9788; Light";
+    }
+    localStorage.setItem(STORAGE_PREFIX + "theme", theme);
+  }
+
+  window.toggleTheme = function() {
+    const current = getTheme();
+    applyTheme(current === "dark" ? "light" : "dark");
+  };
+
+  applyTheme(getTheme());
+
+  // ===== FONT SIZE ADJUSTER =====
+  function getFontSize() {
+    return parseInt(localStorage.getItem(STORAGE_PREFIX + "fontSize") || "16", 10);
+  }
+
+  function applyFontSize(size) {
+    size = Math.max(14, Math.min(22, size));
+    const container = document.getElementById("content-inner");
+    if (container) {
+      container.style.fontSize = size + "px";
+    }
+    localStorage.setItem(STORAGE_PREFIX + "fontSize", size);
+  }
+
+  window.changeFontSize = function(delta) {
+    applyFontSize(getFontSize() + delta * 2);
+  };
+
+  applyFontSize(getFontSize());
+
+  // ===== PROGRESS BAR =====
+  const progressBar = document.getElementById("progress-bar");
+
+  function updateProgressBar() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (progressBar) {
+      progressBar.style.width = Math.min(100, Math.max(0, pct)) + "%";
+    }
+  }
+
+  window.addEventListener("scroll", updateProgressBar, { passive: true });
+  updateProgressBar();
+
+  // ===== COPY BUTTONS ON CODE BLOCKS =====
+  document.querySelectorAll("pre").forEach(function(pre) {
+    const btn = document.createElement("button");
+    btn.className = "copy-btn";
+    btn.textContent = "Nusxa olish";
+    btn.addEventListener("click", function() {
+      const code = pre.querySelector("code") || pre;
+      navigator.clipboard.writeText(code.innerText || code.textContent).then(function() {
+        btn.textContent = "Nusxalandi! ✓";
+        btn.classList.add("copied");
+        setTimeout(function() {
+          btn.textContent = "Nusxa olish";
+          btn.classList.remove("copied");
+        }, 2000);
+      });
+    });
+    pre.appendChild(btn);
+  });
+
+  // ===== SIDEBAR ACCORDION / EXPAND =====
+  const expandedState = JSON.parse(localStorage.getItem(STORAGE_PREFIX + "expanded") || "{}");
+
+  document.querySelectorAll(".sidebar-h1").forEach(function(el) {
+    const chapterEl = el.closest(".sidebar-chapter");
+    if (!chapterEl) return;
+    const idx = chapterEl.dataset.index;
+    const children = document.querySelector('.sidebar-children[data-parent="' + idx + '"]');
+
+    if (expandedState[idx]) {
+      el.classList.add("expanded");
+      if (children) children.classList.add("show");
+    }
+
+    el.addEventListener("click", function(e) {
+      if (e.target.tagName === "A" || e.target.tagName === "INPUT" || e.target.closest(".ch-check")) return;
+      el.classList.toggle("expanded");
+      if (children) children.classList.toggle("show");
+      expandedState[idx] = el.classList.contains("expanded");
+      localStorage.setItem(STORAGE_PREFIX + "expanded", JSON.stringify(expandedState));
+    });
+  });
+
+  // ===== CHAPTER COMPLETION CHECKMARKS =====
+  const completionState = JSON.parse(localStorage.getItem(STORAGE_PREFIX + "completion") || "{}");
+
+  function updateCompletion() {
+    let done = 0;
+    document.querySelectorAll('.ch-check input[type="checkbox"]').forEach(function(cb) {
+      const ch = cb.dataset.ch;
+      completionState[ch] = cb.checked;
+      if (cb.checked) done++;
+    });
+    localStorage.setItem(STORAGE_PREFIX + "completion", JSON.stringify(completionState));
+    
+    const counter = document.getElementById("completion-counter");
+    if (counter) {
+      counter.innerHTML = '<span>O\'qilgan: <strong>' + done + '</strong> / ' + NUM_CHAPTERS + ' bob</span>' +
+        '<div class="completion-bar"><div class="completion-bar-inner" style="width: ' + ((done / NUM_CHAPTERS) * 100) + '%;"></div></div>';
+    }
+  }
+  window.updateCompletion = updateCompletion;
+
+  // Restore completion checkboxes
+  document.querySelectorAll('.ch-check input[type="checkbox"]').forEach(function(cb) {
+    const ch = cb.dataset.ch;
+    if (completionState[ch]) cb.checked = true;
+  });
+  updateCompletion();
+
+  // ===== SEARCH FILTER =====
+  window.filterSidebar = function(query) {
+    query = query.toLowerCase().trim();
+    document.querySelectorAll(".sidebar-chapter").forEach(function(ch) {
+      const text = ch.textContent.toLowerCase();
+      ch.style.display = text.includes(query) ? "" : "none";
+    });
+  };
+
+  // ===== KEYBOARD SHORTCUTS =====
+  const chapterIds = [];
+  document.querySelectorAll(".sidebar-h1 .ch-link").forEach(function(a) {
+    const href = a.getAttribute("href");
+    if (href && href.startsWith("#")) {
+      chapterIds.push(href.slice(1));
+    }
+  });
+
+  function getCurrentChapterIndex() {
+    let best = 0;
+    const scrollY = window.scrollY + 120;
+    for (let i = chapterIds.length - 1; i >= 0; i--) {
+      const el = document.getElementById(chapterIds[i]);
+      if (el && el.offsetTop <= scrollY) {
+        best = i;
+        break;
+      }
+    }
+    return best;
+  }
+
+  document.addEventListener("keydown", function(e) {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") {
+      if (e.key === "Escape") {
+        e.target.blur();
+        e.preventDefault();
+      }
+      return;
+    }
+
+    if (e.key === "j" || e.key === "J") {
+      const idx = Math.min(getCurrentChapterIndex() + 1, chapterIds.length - 1);
+      const el = document.getElementById(chapterIds[idx]);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      e.preventDefault();
+    }
+    if (e.key === "k" || e.key === "K") {
+      const idx = Math.max(getCurrentChapterIndex() - 1, 0);
+      const el = document.getElementById(chapterIds[idx]);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      e.preventDefault();
+    }
+    if (e.key === "t" || e.key === "T") {
+      window.toggleTheme();
+      e.preventDefault();
+    }
+    if (e.key === "/") {
+      const searchBox = document.getElementById("search-box");
+      if (searchBox) {
+        searchBox.focus();
+        e.preventDefault();
+      }
+    }
+  });
+
+  // ===== MOBILE SIDEBAR TOGGLE =====
+  window.toggleSidebar = function() {
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar) {
+      sidebar.classList.toggle("open");
+    }
+  };
+
+  // Close sidebar on item click for mobile screens
+  document.querySelectorAll(".sidebar-items a").forEach(function(a) {
+    a.addEventListener("click", function() {
+      if (window.innerWidth <= 900) {
+        const sidebar = document.getElementById("sidebar");
+        if (sidebar) sidebar.classList.remove("open");
+      }
+    });
+  });
+
+  // ===== PDF EXPORT =====
+  window.exportPDF = function() {
+    window.print();
+  };
+
+  // ===== BOOKMARK / RESUME READING =====
+  let saveTimer = null;
+  function saveScrollPos() {
+    localStorage.setItem(STORAGE_PREFIX + "scrollY", window.scrollY);
+  }
+
+  window.addEventListener("scroll", function() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveScrollPos, 1500);
+  }, { passive: true });
+
+  window.resumeReading = function() {
+    const y = parseInt(localStorage.getItem(STORAGE_PREFIX + "scrollY") || "0", 10);
+    window.scrollTo({ top: y, behavior: "smooth" });
+    const toast = document.getElementById("resume-toast");
+    if (toast) toast.style.display = "none";
+  };
+
+  window.addEventListener("load", function() {
+    const savedY = parseInt(localStorage.getItem(STORAGE_PREFIX + "scrollY") || "0", 10);
+    if (savedY > 400) {
+      const toast = document.getElementById("resume-toast");
+      if (toast) {
+        toast.style.display = "block";
+        setTimeout(function() {
+          toast.style.opacity = "0";
+          setTimeout(function() {
+            toast.style.display = "none";
+            toast.style.opacity = "1";
+          }, 500);
+        }, 8000);
+      }
+    }
+  });
+
+  // ===== ACTIVE CHAPTER HIGHLIGHT ON SCROLL =====
+  function highlightActive() {
+    const idx = getCurrentChapterIndex();
+    document.querySelectorAll(".sidebar-h1").forEach(function(el, i) {
+      el.classList.toggle("active", i === idx);
+    });
+  }
+
+  window.addEventListener("scroll", highlightActive, { passive: true });
+  highlightActive();
+
+  // ===== LIVE CODE PLAYGROUND RUNNER =====
+  window.runPlayground = function(id) {
+    const textarea = document.getElementById("play-code-" + id);
+    const iframe = document.getElementById("play-frame-" + id);
+    if (!textarea || !iframe) return;
+
+    const source = textarea.value;
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+    doc.write(source);
+    doc.close();
+  };
+
+  // Auto-run first playground on load
+  window.addEventListener("DOMContentLoaded", function() {
+    if (typeof runPlayground === "function") {
+      setTimeout(function() { runPlayground(1); }, 300);
+    }
+  });
+
+  // ===== INTERACTIVE QUIZ CHECKER =====
+  window.checkQuiz = function(quizId, optionEl, isCorrect) {
+    const parent = optionEl.parentElement;
+    parent.querySelectorAll(".quiz-option").forEach(function(btn) {
+      btn.style.pointerEvents = "none";
+    });
+
+    const feedback = document.getElementById("quiz-feedback-" + quizId);
+
+    if (isCorrect) {
+      optionEl.classList.add("correct");
+      if (feedback) {
+        feedback.style.display = "block";
+        feedback.style.color = "var(--accent-emerald)";
+        feedback.innerHTML = "🎉 To'g'ri javob! GPU accelerated 'transform' va 'opacity' reflow va repaint chaqirmaydi.";
+      }
+    } else {
+      optionEl.classList.add("wrong");
+      if (feedback) {
+        feedback.style.display = "block";
+        feedback.style.color = "var(--accent-rose)";
+        feedback.innerHTML = "❌ Noto'g'ri. Qayta urinib ko'ring yoki bob tushuntirishlarini qayta o'qing.";
+      }
+    }
+  };
+
+})();
+</script>
+
+</body>
+</html>
