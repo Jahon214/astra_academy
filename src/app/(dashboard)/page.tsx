@@ -4,16 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  Coins,
-  Flame,
-  BookOpen,
   PlayCircle,
-  ArrowRight,
   Clock,
   Sparkles,
-  Code2,
-  Rocket,
-  CheckSquare,
   Send,
 } from 'lucide-react';
 import { useAstra } from '@/lib/store';
@@ -155,118 +148,7 @@ export default function StudentDashboard() {
         </div>
       </div>
 
-      {/* 4. Quick Action Grid (Testlar, Amaliyot, Qo'llanma, Loyihalar) */}
-      <div className="grid grid-cols-4 gap-2">
-        <Link
-          href="/tests"
-          onClick={() => triggerHaptic('light')}
-          className="p-2.5 rounded-2xl bg-neutral-950 hover:bg-neutral-900 border border-neutral-900 hover:border-yellow-500/30 flex flex-col items-center justify-center text-center gap-1 transition-all"
-        >
-          <div className="w-8 h-8 rounded-xl bg-yellow-500/10 text-yellow-400 flex items-center justify-center">
-            <CheckSquare className="w-4 h-4" />
-          </div>
-          <span className="text-[10px] font-semibold text-neutral-200">Testlar</span>
-        </Link>
-
-        <Link
-          href="/practice"
-          onClick={() => triggerHaptic('light')}
-          className="p-2.5 rounded-2xl bg-neutral-950 hover:bg-neutral-900 border border-neutral-900 hover:border-yellow-500/30 flex flex-col items-center justify-center text-center gap-1 transition-all"
-        >
-          <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
-            <Code2 className="w-4 h-4" />
-          </div>
-          <span className="text-[10px] font-semibold text-neutral-200">Amaliyot</span>
-        </Link>
-
-        <Link
-          href="/guides"
-          onClick={() => triggerHaptic('light')}
-          className="p-2.5 rounded-2xl bg-neutral-950 hover:bg-neutral-900 border border-neutral-900 hover:border-yellow-500/30 flex flex-col items-center justify-center text-center gap-1 transition-all"
-        >
-          <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
-            <BookOpen className="w-4 h-4" />
-          </div>
-          <span className="text-[10px] font-semibold text-neutral-200">Qo‘llanma</span>
-        </Link>
-
-        <Link
-          href="/projects"
-          onClick={() => triggerHaptic('light')}
-          className="p-2.5 rounded-2xl bg-neutral-950 hover:bg-neutral-900 border border-neutral-900 hover:border-yellow-500/30 flex flex-col items-center justify-center text-center gap-1 transition-all"
-        >
-          <div className="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center">
-            <Rocket className="w-4 h-4" />
-          </div>
-          <span className="text-[10px] font-semibold text-neutral-200">Loyihalar</span>
-        </Link>
-      </div>
-
-      {/* 5. Popular Courses Section */}
-      <div className="space-y-2.5 pt-1">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
-            <BookOpen className="w-4 h-4 text-yellow-400" />
-            Mashhur Dasturlash Kurslari
-          </h2>
-          <Link
-            href="/courses"
-            onClick={() => triggerHaptic('light')}
-            className="text-[11px] font-semibold text-yellow-400 hover:text-yellow-300 flex items-center gap-0.5"
-          >
-            Barchasi <ArrowRight className="w-3 h-3" />
-          </Link>
-        </div>
-
-        <div className="space-y-2">
-          {courses.slice(0, 4).map((course) => {
-            const allLes = course.modules?.flatMap((m) => m.lessons) || [];
-            const doneLes = allLes.filter((l) => l.is_completed).length;
-
-            return (
-              <Link
-                key={course.id}
-                href={`/courses/${course.id}`}
-                onClick={() => triggerHaptic('light')}
-                className="p-3 rounded-2xl bg-neutral-950 border border-neutral-900 hover:border-yellow-500/30 flex items-center justify-between gap-3 transition-all group"
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-neutral-800 flex-shrink-0">
-                    <Image
-                      src={course.thumbnail_url}
-                      alt={course.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="text-xs sm:text-sm font-bold text-white truncate group-hover:text-yellow-400 transition-colors">
-                      {course.title}
-                    </h3>
-                    <div className="flex items-center gap-2 text-[10px] text-neutral-400 mt-0.5">
-                      <span className="text-yellow-400">{course.category}</span>
-                      <span>•</span>
-                      <span>{course.total_lessons} ta dars</span>
-                      {doneLes > 0 && (
-                        <>
-                          <span>•</span>
-                          <span className="text-emerald-400 font-semibold">{doneLes} tugatildi</span>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-1 text-neutral-500 group-hover:text-yellow-400 transition-colors flex-shrink-0">
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* 6. Astra Academy Telegram Community / Support Banner */}
+      {/* 4. Astra Academy Telegram Community / Support Banner */}
       <div className="p-3.5 rounded-2xl bg-neutral-950 border border-yellow-500/25 flex items-center justify-between gap-3 shadow-[0_0_15px_rgba(250,204,21,0.08)]">
         <div className="space-y-0.5 min-w-0">
           <p className="text-[11px] font-bold text-yellow-400 flex items-center gap-1 truncate">
